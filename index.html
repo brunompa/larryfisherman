@@ -1,18 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Larry Fisherman</title>
+  <link rel="shortcut icon" type="image/jpg" href="doc/favicon.jpg" />
+
 
   <link rel="stylesheet" href="scss/main.css">
 
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-</head>
-<body>
-  Larry Fisherman
-  <section></section>
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
-  
+  <!-- production version, optimized for size and speed -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+
+<body>
+  <main id="root">
+
+    Larry Fisherman
+    <section>
+      <h5>Info</h5>
+      <span>Fish: <span id="fish-count">{{numFish}}</span> </span>
+      <span>Gold: <span id="gold-count">{{numGold}}</span> </span>
+
+      <button id="fish" v-on:click="fishAdd" :disabled="numFish >= this.objects.fish.capacity">Fish</button>
+      <button id="sell-fish" v-on:click="fishSell" :disabled="numFish < 1">Sell Fish</button>
+    </section>
+
+    <section>
+      <h5>Buy</h5>
+      <button id="friend-buy" class="action-button" :disabled="availableSpace <= this.objects.friend.count"
+        v-on:click="friendBuy">{{this.objects.friend.name}} - {{this.objects.friend.cost}}</button>
+
+      <button id="seller-buy" class="action-button" :disabled="numGold < this.objects.seller.cost"
+        v-on:click="buySeller">{{this.objects.seller.name}} -
+        {{this.objects.seller.cost}}</button>
+
+      <button id="canoe-buy" class="action-button" :disabled="numGold < this.objects.canoe.cost" v-on:click="canoeBuy"
+        v-if="this.objects.canoe.count < 1">{{this.objects.canoe.name}} -
+        {{this.objects.canoe.cost}}</button>
+
+    </section>
+
+
+  </main>
+
+  <script src="js/main.js" charset="utf-8" type="text/javascript"></script>
+
 </body>
+
 </html>
