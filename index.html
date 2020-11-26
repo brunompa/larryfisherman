@@ -21,32 +21,37 @@
 </head>
 
 <body>
-  <main id="root">
+  <main id="root" class="container">
 
-    Larry Fisherman
-    <section>
-      <h5>Info</h5>
-      <span>Fish: <span id="fish-count">{{numFish}}</span> </span>
-      <span>Gold: <span id="gold-count">{{numGold}}</span> </span>
+    <div class="row">
 
-      <button id="fish" v-on:click="fishAdd" :disabled="numFish >= this.objects.fish.capacity">Fish</button>
-      <button id="sell-fish" v-on:click="fishSell" :disabled="numFish < 1">Sell Fish</button>
-    </section>
+      <section class="col border m-1 p-3">
+        <h5 class="d-inline">Info</h5>
 
-    <section>
-      <h5>Buy</h5>
-      <button id="friend-buy" class="action-button" :disabled="availableSpace <= this.objects.friend.count"
-        v-on:click="friendBuy">{{this.objects.friend.name}} - {{this.objects.friend.cost}}</button>
-
-      <button id="seller-buy" class="action-button" :disabled="numGold < this.objects.seller.cost"
-        v-on:click="buySeller">{{this.objects.seller.name}} -
-        {{this.objects.seller.cost}}</button>
-
-      <button id="canoe-buy" class="action-button" :disabled="numGold < this.objects.canoe.cost" v-on:click="canoeBuy"
-        v-if="this.objects.canoe.count < 1">{{this.objects.canoe.name}} -
-        {{this.objects.canoe.cost}}</button>
-
-    </section>
+        <button id="fish" class="btn btn-primary btn-sm m-2 float-right" v-on:click="fishAdd" :disabled="numFish >= this.objects.fish.capacity">Fish</button>
+        <button id="sell-fish" class="btn btn-warning btn-sm m-2 float-right" v-on:click="fishSell" :disabled="numFish < 1">Sell Fish</button>
+        <span class="d-block">Fish: <span id="fish-count">{{numFish}}</span> </span>
+        <span class="d-block">Gold: <span id="gold-count">{{numGold}}</span> </span>
+  
+  
+      </section>
+  
+      <section class="col border m-1 p-3">
+        <h5>Buy</h5>
+        <button id="friend-buy" class="action-button d-block btn btn-info btn-sm mb-2" :disabled="availableSpace <= this.objects.friend.count"
+          v-on:click="friendBuy">{{this.objects.friend.name}} - {{this.objects.friend.cost}}</button>
+  
+        <button id="seller-buy" class="action-button d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.seller.cost"
+          v-on:click="buySeller">{{this.objects.seller.name}} -
+          {{this.objects.seller.cost}}</button>
+  
+        <button id="canoe-buy" class="action-button d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoe.cost" v-on:click="canoeBuy"
+          v-if="this.objects.canoe.count < 1">{{this.objects.canoe.name}} -
+          {{this.objects.canoe.cost}}</button>
+  
+      </section>
+    </div>
+    
 
 
   </main>
