@@ -7,7 +7,6 @@ let root = new Vue({
 
     availableSpace: 0,
 
-
     objects: {
       fish: {
         name: "Fish",
@@ -16,11 +15,23 @@ let root = new Vue({
         capacity: Infinity,
       },
       // selling
+      permit: {
+        name: "Sell Permit",
+        count: 0,
+        cost: 250,
+        fish: 0
+      },
       seller: {
         name: "Seller",
         count: 0,
         cost: 15,
         fish: .25
+      },
+      stand: {
+        name: "Selling Stand",
+        count: 0,
+        cost: 50,
+        fish: 0
       },
       // fishing
       friend: {
@@ -56,6 +67,13 @@ let root = new Vue({
     },
 
 
+    permitBuy: function () {
+      this.objects.permit.count += 1;
+      this.numGold -= this.objects.permit.cost;
+      this.objects.seller.fish += .25;
+      this.objects.fish.cost += .25;
+    },
+
     friendBuy: function () {
       this.objects.friend.count += 1;
     },
@@ -66,6 +84,12 @@ let root = new Vue({
       this.objects.canoe.cost = Math.ceil(this.objects.canoe.cost * 1.5);
 
       this.availableSpace += this.objects.canoe.space;
+    },
+
+
+    standBuy: function () {
+      this.objects.stand.count += 1;
+      this.numGold -= this.objects.stand.cost;
     },
 
 
