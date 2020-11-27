@@ -5,7 +5,12 @@ let root = new Vue({
     numFish: 0,
     numGold: 0,
 
+    numFishSec: 0,
+    numGoldSec: 0,
+
     availableSpace: 0,
+
+
 
     objects: {
       fish: {
@@ -47,12 +52,6 @@ let root = new Vue({
         name: "Selling Stand",
         count: 0,
         cost: 50,
-        fish: 0
-      },
-      standlocation: {
-        name: "Better Location",
-        count: 0,
-        cost: 300,
         fish: 0
       },
       standstorage: {
@@ -162,6 +161,8 @@ let root = new Vue({
       setInterval(() => {
         this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
 
+        this.numFishSec = this.objects.friend.count * this.objects.friend.fish
+        this.numGoldSec = this.objects.seller.count * this.objects.seller.fish;
 
         for (let i = 0; i < this.objects.seller.count; i++) {
           if (this.numFish < 1) {
