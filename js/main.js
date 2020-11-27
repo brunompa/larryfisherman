@@ -27,10 +27,38 @@ let root = new Vue({
         cost: 15,
         fish: .25
       },
+      dock: {
+        name: "Dock",
+        count: 0,
+      },
+      docklocation: {
+        name: "Better Location",
+        count: 0,
+        cost: 300,
+        fish: 0
+      },
+      dockstorage: {
+        name: "More Storage",
+        count: 0,
+        cost: 300,
+        fish: 0
+      },
       stand: {
         name: "Selling Stand",
         count: 0,
         cost: 50,
+        fish: 0
+      },
+      standlocation: {
+        name: "Better Location",
+        count: 0,
+        cost: 300,
+        fish: 0
+      },
+      standstorage: {
+        name: "More Storage",
+        count: 0,
+        cost: 300,
         fish: 0
       },
       // fishing
@@ -47,6 +75,13 @@ let root = new Vue({
         cost: 100,
         fish: 0,
         space: 1
+      },
+      canoeextension: {
+        name: "Extension",
+        count: 0,
+        cost: 250,
+        fish: 0,
+        space: 2
       },
     },
   },
@@ -86,12 +121,41 @@ let root = new Vue({
       this.availableSpace += this.objects.canoe.space;
     },
 
+    canoeExtenstionBuy: function () {
+      if (this.objects.canoeextension.count >= 1) return;
+      this.objects.canoeextension.count += 1;
+      this.numGold -= this.objects.canoeextension.cost;
+      this.availableSpace += this.objects.canoeextension.space;
+    },
+
+    // dockStorageBuy: function () {
+    //   this.objects.dockstorage.count += 1;
+    //   this.numGold -= this.objects.dockstorage.cost;
+    // },
+
+    dockLocationBuy: function () {
+      this.objects.docklocation.count += 1;
+      this.numGold -= this.objects.docklocation.cost;
+      
+      this.objects.fish.cost += .25;
+    },
 
     standBuy: function () {
       this.objects.stand.count += 1;
       this.numGold -= this.objects.stand.cost;
     },
 
+    standLocationBuy: function () {
+      this.objects.standLocationBuy.count += 1;
+      this.numGold -= this.objects.standLocationBuy.cost;
+
+      this.objects.fish.cost += .25;
+    },
+
+    // standStorageBuy: function () {
+    //   this.objects.standStorageBuy.count += 1;
+    //   this.numGold -= this.objects.standLocationBuy.cost;
+    // },
 
     todo: function () {
       setInterval(() => {
