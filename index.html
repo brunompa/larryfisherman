@@ -40,9 +40,6 @@
 
         <span class="d-block">Storage availability: {{numFish}}/{{availableStorage}}</span>
 
-        
-
-
       </section>
 
       <section class="col-12 col-md border p-3 m-1">
@@ -72,7 +69,6 @@
           v-on:click="canoeBuy" v-if="this.objects.canoe.count < 1">{{this.objects.canoe.name}} -
           {{this.objects.canoe.cost}}</button>
 
-
       </section>
 
       <section class="col-12 col-md border p-3 m-1" v-if="this.objects.canoe.count > 0 || this.objects.dock.count > 0">
@@ -89,18 +85,20 @@
 
         <!-- DOCK -->
         <span v-if="this.objects.dock.count > 0 || this.objects.dockstorage.count > 0 || this.objects.docklocation.count > 0">{{this.objects.dock.name}}</span>
+        
         <!-- LOCATION -->
         <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.docklocation.cost"
           v-on:click="dockLocationBuy" v-if="this.objects.dock.count > 0 && this.objects.docklocation.count < 1">{{this.objects.docklocation.name}} -
           {{this.objects.docklocation.cost}}</button>
-        <!-- STORAGE -->
+        
+          <!-- STORAGE -->
         <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.dockstorage.cost"
           v-on:click="dockStorageBuy" v-if="this.objects.dock.count > 0 && this.objects.dockstorage.count < 1" >{{this.objects.dockstorage.name}} -
           {{this.objects.dockstorage.cost}}</button>
 
       </section>
 
-      <section class="col-12 col-md border p-3 m-1" >
+      <section class="col-12 col-md border p-3 m-1">
         <h5>Journal</h5>
         <span class="d-block">{{this.objects.friend.name}} - {{this.objects.friend.count}}</span>
         <span class="d-block">{{this.objects.seller.name}} - {{this.objects.seller.count}}</span>

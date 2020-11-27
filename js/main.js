@@ -144,10 +144,17 @@ let root = new Vue({
 
     todo: function () {
       setInterval(() => {
-
         // fish and gold each second
         this.numFishSec = this.objects.friend.count * this.objects.friend.fish
         this.numGoldSec = this.objects.seller.count * this.objects.seller.fish;
+
+        // fish if theres available storage
+        if (this.numFish < this.availableStorage) {
+          this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
+        }
+        else {
+          return;
+        }
 
         // exchange fish for gold
         for (let i = 0; i < this.objects.seller.count; i++) {
@@ -159,19 +166,8 @@ let root = new Vue({
           }
         }
 
-        for (let availableStorage = 0; availableStorage < fish; availableStorage++) {
-          if (this.numFish <= availableStorage) {
-            this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
-          }
-          else {
-            break
-          }
-          
 
 
-
-
-        }
 
         console.log("tick");
       }, 1000);
