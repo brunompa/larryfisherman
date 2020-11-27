@@ -30,13 +30,16 @@
         <h5 class="d-block">Info</h5>
 
         <button id="fish" class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="fishAdd"
-          :disabled="numFish >= this.objects.fish.capacity">Fish</button>
+          :disabled="numFish >= availableStorage">Fish</button>
         <button id="sell-fish" class="btn btn-warning btn-sm mr-1 mb-1 mt-1" v-on:click="fishSell"
           :disabled="numFish < 1">Sell Fish</button>
 
         <span class="d-block">Fish: <span class="mr-5">{{numFish}}</span> <span>{{numFishSec}}/s</span></span>
         
         <span class="d-block">Gold: <span class="mr-5">{{numGold}}</span> <span>{{numGoldSec}}/s</span></span>
+
+        <span class="d-block">Storage availability: {{numFish}}/{{availableStorage}}</span>
+
         
 
 
@@ -61,7 +64,7 @@
 
         <!-- STAND -->
         <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.stand.cost"
-          v-on:click="standBuy" v-if="this.objects.permit.count > 0">{{this.objects.stand.name}} -
+          v-on:click="standBuy" v-if="this.objects.permit.count > 0 && this.objects.stand.count < 1">{{this.objects.stand.name}} -
           {{this.objects.stand.cost}}</button>
 
         <!-- CANOE -->
@@ -76,7 +79,8 @@
         <h5>Upgrades</h5>
 
         <!-- CANOE -->
-        <span v-if="this.objects.canoe.count > 0">{{this.objects.canoe.name}}</span>
+        <span v-if="this.objects.canoe.count > 0 || this.objects.canoeextension.count > 0">{{this.objects.canoe.name}}</span>
+      
         <!-- EXTENSION -->
         <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoeextension.cost"
           v-on:click="canoeExtenstionBuy"
@@ -84,15 +88,15 @@
           - {{this.objects.canoeextension.cost}}</button>
 
         <!-- DOCK -->
-        <span v-if="this.objects.dock.count > 0">{{this.objects.dock.name}}</span>
+        <span v-if="this.objects.dock.count > 0 || this.objects.dockstorage.count > 0 || this.objects.docklocation.count > 0">{{this.objects.dock.name}}</span>
         <!-- LOCATION -->
         <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.docklocation.cost"
-          v-on:click="dockLocationBuy" v-if="this.objects.dock.count > 0">{{this.objects.docklocation.name}} -
+          v-on:click="dockLocationBuy" v-if="this.objects.dock.count > 0 && this.objects.docklocation.count < 1">{{this.objects.docklocation.name}} -
           {{this.objects.docklocation.cost}}</button>
         <!-- STORAGE -->
-        <!-- <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.dockstorage.cost"
-          v-on:click="dockStorageBuy">{{this.objects.dockstorage.name}} -
-          {{this.objects.dockstorage.cost}}</button> -->
+        <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.dockstorage.cost"
+          v-on:click="dockStorageBuy" v-if="this.objects.dock.count > 0 && this.objects.dockstorage.count < 1" >{{this.objects.dockstorage.name}} -
+          {{this.objects.dockstorage.cost}}</button>
 
       </section>
 

@@ -9,13 +9,13 @@ let root = new Vue({
     numGoldSec: 0,
 
     availableSpace: 0,
+    availableStorage: 100,
 
     objects: {
       fish: {
         name: "Fish",
         count: 0,
         cost: .25,
-        capacity: Infinity,
       },
       // selling
       permit: {
@@ -33,6 +33,7 @@ let root = new Vue({
       dock: {
         name: "Dock",
         count: 0,
+        storage: 550
       },
       docklocation: {
         name: "Better Location",
@@ -44,18 +45,13 @@ let root = new Vue({
         name: "More Storage",
         count: 0,
         cost: 300,
-        fish: 0
+        fish: 0,
+        storage: 1000
       },
       stand: {
         name: "Selling Stand",
         count: 0,
         cost: 50,
-        fish: 0
-      },
-      standstorage: {
-        name: "More Storage",
-        count: 0,
-        cost: 300,
         fish: 0
       },
       // fishing
@@ -126,10 +122,12 @@ let root = new Vue({
       this.availableSpace += this.objects.canoeextension.space;
     },
 
-    // dockStorageBuy: function () {
-    //   this.objects.dockstorage.count += 1;
-    //   this.numGold -= this.objects.dockstorage.cost;
-    // },
+    dockStorageBuy: function () {
+      this.objects.dockstorage.count += 1;
+      this.numGold -= this.objects.dockstorage.cost;
+
+      this.availableStorage += this.objects.dockstorage.storage;
+    },
 
     dockLocationBuy: function () {
       this.objects.docklocation.count += 1;
@@ -143,21 +141,9 @@ let root = new Vue({
       this.numGold -= this.objects.stand.cost;
     },
 
-    standLocationBuy: function () {
-      this.objects.standLocationBuy.count += 1;
-      this.numGold -= this.objects.standLocationBuy.cost;
-
-      this.objects.fish.cost += .25;
-    },
-
-    // standStorageBuy: function () {
-    //   this.objects.standStorageBuy.count += 1;
-    //   this.numGold -= this.objects.standLocationBuy.cost;
-    // },
 
     todo: function () {
       setInterval(() => {
-        this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
 
         // fish and gold each second
         this.numFishSec = this.objects.friend.count * this.objects.friend.fish
@@ -171,6 +157,20 @@ let root = new Vue({
             this.numFish--;
             this.numGold += this.objects.seller.fish;
           }
+        }
+
+        for (let availableStorage = 0; availableStorage < fish; availableStorage++) {
+          if (this.numFish <= availableStorage) {
+            this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
+          }
+          else {
+            break
+          }
+          
+
+
+
+
         }
 
         console.log("tick");
