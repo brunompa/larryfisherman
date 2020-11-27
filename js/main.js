@@ -107,6 +107,7 @@ let root = new Vue({
       this.numGold -= this.objects.permit.cost;
       this.objects.seller.fish += .25;
       this.objects.fish.cost += .25;
+      this.objects.dock.count += 1;
     },
 
     friendBuy: function () {
@@ -136,7 +137,7 @@ let root = new Vue({
     dockLocationBuy: function () {
       this.objects.docklocation.count += 1;
       this.numGold -= this.objects.docklocation.cost;
-      
+
       this.objects.fish.cost += .25;
     },
 

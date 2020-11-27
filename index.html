@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="scss/main.css">
 
   <!-- development version, includes helpful console warnings -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
   <!-- production version, optimized for size and speed -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
 </head>
 
 <body>
@@ -58,7 +58,7 @@
         <!-- STAND -->
         <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.stand.cost"
           v-on:click="standBuy" v-if="this.objects.permit.count > 0">{{this.objects.stand.name}} -
-          {{this.objects.stand.cost}} <span class="values-second">{{this.objects.stand.fish}}/s</span></button>
+          {{this.objects.stand.cost}}</button>
 
         <!-- CANOE -->
         <button id="canoe-buy" class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoe.cost"
@@ -69,7 +69,6 @@
 
       <section class="col border m-1 p-3" v-if="this.objects.canoe.count > 0 || this.objects.dock.count > 0">
         <h5>Upgrades</h5>
-
 
         <!-- CANOE -->
         <span v-if="this.objects.canoe.count > 0">{{this.objects.canoe.name}}</span>
