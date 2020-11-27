@@ -10,8 +10,6 @@ let root = new Vue({
 
     availableSpace: 0,
 
-
-
     objects: {
       fish: {
         name: "Fish",
@@ -161,9 +159,11 @@ let root = new Vue({
       setInterval(() => {
         this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
 
+        // fish and gold each second
         this.numFishSec = this.objects.friend.count * this.objects.friend.fish
         this.numGoldSec = this.objects.seller.count * this.objects.seller.fish;
 
+        // exchange fish for gold
         for (let i = 0; i < this.objects.seller.count; i++) {
           if (this.numFish < 1) {
             break
@@ -182,7 +182,5 @@ let root = new Vue({
 
     this.todo()
   },
-
-
 
 });
