@@ -22,11 +22,11 @@
 </head>
 
 <body>
-  <main id="root" class="container-fluid">
+  <main id="root" class="container">
 
     <div class="row">
 
-      <section class="col border m-1 p-3">
+      <section class="col-12 col-md border p-3 m-1">
         <h5 class="d-block">Info</h5>
 
         <button id="fish" class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="fishAdd"
@@ -42,7 +42,7 @@
 
       </section>
 
-      <section class="col border m-1 p-3">
+      <section class="col-12 col-md border p-3 m-1">
         <h5>Buy</h5>
 
         <button class="d-block btn btn-info btn-sm mb-2" v-on:click="friendBuy"
@@ -72,7 +72,7 @@
 
       </section>
 
-      <section class="col border m-1 p-3" v-if="this.objects.canoe.count > 0 || this.objects.dock.count > 0">
+      <section class="col-12 col-md border p-3 m-1" v-if="this.objects.canoe.count > 0 || this.objects.dock.count > 0">
         <h5>Upgrades</h5>
 
         <!-- CANOE -->
