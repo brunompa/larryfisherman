@@ -8,8 +8,13 @@ let root = new Vue({
     numFishSec: 0,
     numGoldSec: 0,
 
+    stance: true,
+
     availableSpace: 0,
     availableStorage: 100,
+
+    fishingState: true,
+    sellingState: false,
 
     objects: {
       fish: {
@@ -87,6 +92,21 @@ let root = new Vue({
       this.numGold += this.objects.fish.cost
     },
 
+    changeStance: function () {
+      if (this.stance == true) {
+        this.stance = false;
+
+        this.fishingState = false;
+        this.sellingState = true;
+
+      } else {
+        this.stance = true;
+        
+        this.fishingState = true;
+        this.sellingState = false;
+
+      }
+    },
 
     buySeller: function () {
       this.objects.seller.count += 1;
@@ -140,6 +160,8 @@ let root = new Vue({
       this.objects.stand.count += 1;
       this.numGold -= this.objects.stand.cost;
     },
+
+
 
 
     todo: function () {

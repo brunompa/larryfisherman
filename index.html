@@ -31,10 +31,11 @@
         <div class="border rounded position-relative p-2 h-100">
           <h5 class="d-block">Info</h5>
 
-          <button id="fish" class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="fishAdd"
-            :disabled="numFish >= availableStorage">Fish</button>
-          <button id="sell-fish" class="btn btn-warning btn-sm mr-1 mb-1 mt-1" v-on:click="fishSell"
-            :disabled="numFish < 1">Sell Fish</button>
+          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="fishAdd"
+            :disabled="fishingState == false">Fish</button>
+
+          <button class="btn btn-warning btn-sm mr-1 mb-1 mt-1" v-on:click="fishSell" :disabled="sellingState == false">Sell
+            Fish</button>
 
           <span class="d-block">Fish: <span class="mr-5">{{numFish}}</span> <span>{{numFishSec}}/s</span></span>
 
@@ -42,6 +43,8 @@
 
           <span class="d-block">Storage availability: {{numFish}}/{{availableStorage}}</span>
 
+
+          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="changeStance">At sea: {{stance}}</button>
         </div>
 
       </section>
@@ -83,7 +86,8 @@
           <h5>Upgrades</h5>
 
           <!-- CANOE -->
-          <span v-if="this.objects.canoe.count > 0 && this.objects.canoeextension.count <= 0">{{this.objects.canoe.name}}</span>
+          <span
+            v-if="this.objects.canoe.count > 0 && this.objects.canoeextension.count <= 0">{{this.objects.canoe.name}}</span>
 
           <!-- EXTENSION -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoeextension.cost"
@@ -92,7 +96,8 @@
             - {{this.objects.canoeextension.cost}}</button>
 
           <!-- DOCK -->
-          <span v-if="this.objects.dockstorage.count != 1 || this.objects.docklocation.count != 1">{{this.objects.dock.name}}</span>
+          <span
+            v-if="this.objects.dockstorage.count != 1 || this.objects.docklocation.count != 1">{{this.objects.dock.name}}</span>
 
           <!-- LOCATION -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.docklocation.cost"
