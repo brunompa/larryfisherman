@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="scss/main.css">
 
   <!-- development version, includes helpful console warnings -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
 
   <!-- production version, optimized for size and speed -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 
 <body>
@@ -26,88 +26,100 @@
 
     <div class="row">
 
-      <section class="col-12 col-md border p-3 m-1">
-        <h5 class="d-block">Info</h5>
 
-        <button id="fish" class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="fishAdd"
-          :disabled="numFish >= availableStorage">Fish</button>
-        <button id="sell-fish" class="btn btn-warning btn-sm mr-1 mb-1 mt-1" v-on:click="fishSell"
-          :disabled="numFish < 1">Sell Fish</button>
+      <section class="col-12 col-md pt-2">
+        <div class="border rounded position-relative p-2 h-100">
+          <h5 class="d-block">Info</h5>
 
-        <span class="d-block">Fish: <span class="mr-5">{{numFish}}</span> <span>{{numFishSec}}/s</span></span>
-        
-        <span class="d-block">Gold: <span class="mr-5">{{numGold}}</span> <span>{{numGoldSec}}/s</span></span>
+          <button id="fish" class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="fishAdd"
+            :disabled="numFish >= availableStorage">Fish</button>
+          <button id="sell-fish" class="btn btn-warning btn-sm mr-1 mb-1 mt-1" v-on:click="fishSell"
+            :disabled="numFish < 1">Sell Fish</button>
 
-        <span class="d-block">Storage availability: {{numFish}}/{{availableStorage}}</span>
+          <span class="d-block">Fish: <span class="mr-5">{{numFish}}</span> <span>{{numFishSec}}/s</span></span>
 
-      </section>
+          <span class="d-block">Gold: <span class="mr-5">{{numGold}}</span> <span>{{numGoldSec}}/s</span></span>
 
-      <section class="col-12 col-md border p-3 m-1">
-        <h5>Buy</h5>
+          <span class="d-block">Storage availability: {{numFish}}/{{availableStorage}}</span>
 
-        <button class="d-block btn btn-info btn-sm mb-2" v-on:click="friendBuy"
-          v-if="availableSpace > this.objects.friend.count">{{this.objects.friend.name}} -
-          {{this.objects.friend.cost}}</button>
-
-        <!-- SELL PERMIT -->
-        <button class="d-block btn btn-info btn-sm mb-2" v-if="this.objects.permit.count < 1"
-          :disabled="numGold < this.objects.permit.cost" v-on:click="permitBuy">{{this.objects.permit.name}} -
-          {{this.objects.permit.cost}}</button>
-
-        <!-- SELLER -->
-        <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.seller.cost"
-          v-on:click="buySeller" v-if="this.objects.permit.count > 0">{{this.objects.seller.name}} -
-          {{this.objects.seller.cost}}</button>
-
-        <!-- STAND -->
-        <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.stand.cost"
-          v-on:click="standBuy" v-if="this.objects.permit.count > 0 && this.objects.stand.count < 1">{{this.objects.stand.name}} -
-          {{this.objects.stand.cost}}</button>
-
-        <!-- CANOE -->
-        <button id="canoe-buy" class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoe.cost"
-          v-on:click="canoeBuy" v-if="this.objects.canoe.count < 1">{{this.objects.canoe.name}} -
-          {{this.objects.canoe.cost}}</button>
+        </div>
 
       </section>
 
-      <section class="col-12 col-md border p-3 m-1" v-if="this.objects.canoe.count > 0 || this.objects.dock.count > 0">
-        <h5>Upgrades</h5>
+      <section class="col-12 col-md pt-2">
+        <div class="border rounded position-relative p-2 h-100">
+          <h5>Buy</h5>
 
-        <!-- CANOE -->
-        <span v-if="this.objects.canoe.count > 0 || this.objects.canoeextension.count > 0">{{this.objects.canoe.name}}</span>
-      
-        <!-- EXTENSION -->
-        <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoeextension.cost"
-          v-on:click="canoeExtenstionBuy"
-          v-if="this.objects.canoeextension.count < 1 && this.objects.canoe.count > 0">{{this.objects.canoeextension.name}}
-          - {{this.objects.canoeextension.cost}}</button>
+          <button class="d-block btn btn-info btn-sm mb-2" v-on:click="friendBuy"
+            v-if="availableSpace > this.objects.friend.count">{{this.objects.friend.name}} -
+            {{this.objects.friend.cost}}</button>
 
-        <!-- DOCK -->
-        <span v-if="this.objects.dock.count > 0 || this.objects.dockstorage.count > 0 || this.objects.docklocation.count > 0">{{this.objects.dock.name}}</span>
-        
-        <!-- LOCATION -->
-        <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.docklocation.cost"
-          v-on:click="dockLocationBuy" v-if="this.objects.dock.count > 0 && this.objects.docklocation.count < 1">{{this.objects.docklocation.name}} -
-          {{this.objects.docklocation.cost}}</button>
-        
+          <!-- SELL PERMIT -->
+          <button class="d-block btn btn-info btn-sm mb-2" v-if="this.objects.permit.count < 1"
+            :disabled="numGold < this.objects.permit.cost" v-on:click="permitBuy">{{this.objects.permit.name}} -
+            {{this.objects.permit.cost}}</button>
+
+          <!-- SELLER -->
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.seller.cost"
+            v-on:click="buySeller" v-if="this.objects.permit.count > 0">{{this.objects.seller.name}} -
+            {{this.objects.seller.cost}}</button>
+
+          <!-- STAND -->
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.stand.cost"
+            v-on:click="standBuy"
+            v-if="this.objects.permit.count > 0 && this.objects.stand.count < 1">{{this.objects.stand.name}} -
+            {{this.objects.stand.cost}}</button>
+
+          <!-- CANOE -->
+          <button id="canoe-buy" class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoe.cost"
+            v-on:click="canoeBuy" v-if="this.objects.canoe.count < 1">{{this.objects.canoe.name}} -
+            {{this.objects.canoe.cost}}</button>
+
+        </div>
+      </section>
+
+      <section class="col-12 col-md pt-2" v-if="this.objects.canoe.count > 0 || this.objects.dock.count > 0">
+        <div class="border rounded position-relative p-2 h-100">
+          <h5>Upgrades</h5>
+
+          <!-- CANOE -->
+          <span v-if="this.objects.canoe.count > 0 && this.objects.canoeextension.count <= 0">{{this.objects.canoe.name}}</span>
+
+          <!-- EXTENSION -->
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoeextension.cost"
+            v-on:click="canoeExtenstionBuy"
+            v-if="this.objects.canoeextension.count < 1 && this.objects.canoe.count > 0">{{this.objects.canoeextension.name}}
+            - {{this.objects.canoeextension.cost}}</button>
+
+          <!-- DOCK -->
+          <span v-if="this.objects.dockstorage.count != 1 || this.objects.docklocation.count != 1">{{this.objects.dock.name}}</span>
+
+          <!-- LOCATION -->
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.docklocation.cost"
+            v-on:click="dockLocationBuy"
+            v-if="this.objects.dock.count > 0 && this.objects.docklocation.count < 1">{{this.objects.docklocation.name}}
+            -
+            {{this.objects.docklocation.cost}}</button>
+
           <!-- STORAGE -->
-        <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.dockstorage.cost"
-          v-on:click="dockStorageBuy" v-if="this.objects.dock.count > 0 && this.objects.dockstorage.count < 1" >{{this.objects.dockstorage.name}} -
-          {{this.objects.dockstorage.cost}}</button>
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.dockstorage.cost"
+            v-on:click="dockStorageBuy"
+            v-if="this.objects.dock.count > 0 && this.objects.dockstorage.count < 1">{{this.objects.dockstorage.name}} -
+            {{this.objects.dockstorage.cost}}</button>
 
+        </div>
       </section>
 
-      <section class="col-12 col-md border p-3 m-1">
-        <h5>Journal</h5>
-        <span class="d-block">{{this.objects.friend.name}} - {{this.objects.friend.count}}</span>
-        <span class="d-block">{{this.objects.seller.name}} - {{this.objects.seller.count}}</span>
-        <span class="d-block">{{this.objects.canoe.name}} - {{this.objects.canoe.count}}</span>
+      <section class="col-12 col-md pt-2">
+        <div class="border rounded position-relative p-2 h-100">
+          <h5>Journal</h5>
+          <span class="d-block">{{this.objects.friend.name}} - {{this.objects.friend.count}}</span>
+          <span class="d-block">{{this.objects.seller.name}} - {{this.objects.seller.count}}</span>
+          <span class="d-block">{{this.objects.canoe.name}} - {{this.objects.canoe.count}}</span>
 
+        </div>
       </section>
-
     </div>
-
 
 
   </main>
