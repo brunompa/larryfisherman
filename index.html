@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="scss/main.css">
 
   <!-- development version, includes helpful console warnings -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
   <!-- production version, optimized for size and speed -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
 </head>
 
 <body>
@@ -31,10 +31,10 @@
         <div class="border rounded position-relative p-2 h-100">
           <h5 class="d-block">Info</h5>
 
-          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="fishAdd"
-            :disabled="fishingState == false">Fish</button>
+          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="fishCheck"
+            :disabled="fishingState == !true">Fish</button>
 
-          <button class="btn btn-warning btn-sm mr-1 mb-1 mt-1" v-on:click="fishSell" :disabled="sellingState == false">Sell
+          <button class="btn btn-warning btn-sm mr-1 mb-1 mt-1" v-on:click="sellCheck" :disabled="sellingState == !true">Sell
             Fish</button>
 
           <span class="d-block">Fish: <span class="mr-5">{{numFish}}</span> <span>{{numFishSec}}/s</span></span>
@@ -44,7 +44,7 @@
           <span class="d-block">Storage availability: {{numFish}}/{{availableStorage}}</span>
 
 
-          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="changeStance">At sea: {{stance}}</button>
+          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="stanceCheck">At sea: {{stance}}</button>
         </div>
 
       </section>

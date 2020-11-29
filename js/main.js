@@ -92,28 +92,11 @@ let root = new Vue({
       this.numGold += this.objects.fish.cost
     },
 
-    changeStance: function () {
-      if (this.stance == true) {
-        this.stance = false;
-
-        this.fishingState = false;
-        this.sellingState = true;
-
-      } else {
-        this.stance = true;
-        
-        this.fishingState = true;
-        this.sellingState = false;
-
-      }
-    },
-
     buySeller: function () {
       this.objects.seller.count += 1;
       this.numGold -= this.objects.seller.cost;
       this.objects.seller.cost = Math.ceil(this.objects.seller.cost * 1.5);
     },
-
 
     permitBuy: function () {
       this.objects.permit.count += 1;
@@ -161,9 +144,56 @@ let root = new Vue({
       this.numGold -= this.objects.stand.cost;
     },
 
+    fishCheck: function () {
+      
+      if (this.numFish < this.availableStorage) {
+        this.numFish++
 
+        if (this.numFish >= this.availableStorage) {
+          this.fishingState = false;
+        }
+        if (this.numFish > 0 && this.stance == false) {
+          this.sellingState = true;
+        }
 
+      } else {
+        this.fishingState = false;
+      }
 
+    },
+
+    sellCheck: function() {
+
+      if (this.numFish > 0 && this.stance == false) {
+        this.numFish--
+        this.numGold += this.objects.fish.cost
+        if (this.numFish < this.availableStorage) {
+          this.fishingState = true;
+        }
+        if (this.numFish <= 0) {
+          this.sellingState = false;
+        }
+      } else {
+        this.sellingState = false;
+      }
+
+    },
+
+    stanceCheck: function() {
+      if (this.stance == true) {
+        this.stance = false;
+        if (this.numFish > 0) {
+          this.sellingState = true;
+        }
+        
+      } else {
+        this.stance = true;
+        this.sellingState = false;
+      }
+
+    },
+
+    
     todo: function () {
       setInterval(() => {
         // fish and gold each second
@@ -171,7 +201,7 @@ let root = new Vue({
         this.numGoldSec = this.objects.seller.count * this.objects.seller.fish;
 
         // fish if theres available storage
-        if (this.numFish < this.availableStorage) {
+        if (this.numFish < this.availableStorage && this.stance == true) {
           this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
         }
         else {
@@ -189,10 +219,10 @@ let root = new Vue({
         }
 
 
-
-
+       
         console.log("tick");
       }, 1000);
+      
     },
 
   },
