@@ -204,9 +204,6 @@ let root = new Vue({
         if (this.numFish < this.availableStorage && this.stance == true) {
           this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
         }
-        else {
-          return;
-        }
 
         // exchange fish for gold
         for (let i = 0; i < this.objects.seller.count; i++) {
