@@ -52,6 +52,10 @@
         <div class="border rounded position-relative p-2 h-100">
           <h5>Buy</h5>
 
+          <button class="d-block btn btn-info btn-sm mb-2" v-on:click="buyFishingRod"
+          v-if="this.objects.fishingrod.count < 1 " :disabled="numGold < this.objects.fishingrod.cost">{{this.objects.fishingrod.name}} -
+            {{this.objects.fishingrod.cost}}</button>
+
           <button class="d-block btn btn-info btn-sm mb-2" v-on:click="friendBuy"
             v-if="availableSpace > this.objects.friend.count">{{this.objects.friend.name}} -
             {{this.objects.friend.cost}}</button>

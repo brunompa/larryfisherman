@@ -73,7 +73,6 @@ let root = new Vue({
       },
     },
 
-
     objects: {
       fish: {
         name: "Fish",
@@ -88,20 +87,81 @@ let root = new Vue({
         fish: 1
       },
 
+      // faz pescar mais por segundo?
+      // +1 peixe por segundo
+      fishingrod: {
+        name: "Fishing Rod",
+        count: 0,
+        cost: 15,
+        fish: 1
+      },
+
+      // faz toda a gente pescar mais por segundo?
+      // sempre que compra faz x numero de pessoas e preço e faz mais 1 peixe por segundo durante 10 segundos???
+      // bait: {
+      //   name: "Bait",
+      //   count: 0,
+      //   cost: 4,
+      //   fisht: 1
+      // },
+
     },
   },
   methods: {
-    fishAdd: function () {
-      this.numFish++
+    fishCheck: function () {
+      if (this.numFish < this.availableStorage) {
+        this.numFish++
+
+        if (this.objects.fishingrod.count > 0) {
+          this.numFish++
+        }
+        if (this.numFish >= this.availableStorage) {
+          this.fishingState = false;
+        }
+        if (this.numFish > 0 && this.stance == false) {
+          this.sellingState = true;
+        }
+
+      } else {
+        this.fishingState = false;
+      }
     },
-    fishSell: function () {
-      this.numFish--
-      this.numGold += this.objects.fish.cost
+
+    sellCheck: function () {
+      if (this.numFish > 0 && this.stance == false) {
+        this.numFish--
+        this.numGold += this.objects.fish.cost
+        if (this.numFish < this.availableStorage) {
+          this.fishingState = true;
+        }
+        if (this.numFish <= 0) {
+          this.sellingState = false;
+        }
+      } else {
+        this.sellingState = false;
+      }
+    },
+
+    stanceCheck: function () {
+      if (this.stance == true) {
+        this.stance = false;
+        if (this.numFish > 0) {
+          this.sellingState = true;
+        }
+      } else {
+        this.stance = true;
+        this.sellingState = false;
+      }
+    },
+
+    buyFishingRod: function () {
+      this.objects.fishingrod.count += 1;
+      this.numGold -= this.objects.fishingrod.cost;
     },
 
     buySeller: function () {
       this.land.seller.count += 1;
-      this.numGold -= this.objects.seller.cost;
+      this.numGold -= this.land.seller.cost;
       this.land.seller.cost = Math.ceil(this.land.seller.cost * 1.5);
     },
 
@@ -151,56 +211,7 @@ let root = new Vue({
       this.numGold -= this.land.stand.cost;
     },
 
-    fishCheck: function () {
-      
-      if (this.numFish < this.availableStorage) {
-        this.numFish++
 
-        if (this.numFish >= this.availableStorage) {
-          this.fishingState = false;
-        }
-        if (this.numFish > 0 && this.stance == false) {
-          this.sellingState = true;
-        }
-
-      } else {
-        this.fishingState = false;
-      }
-
-    },
-
-    sellCheck: function() {
-
-      if (this.numFish > 0 && this.stance == false) {
-        this.numFish--
-        this.numGold += this.objects.fish.cost
-        if (this.numFish < this.availableStorage) {
-          this.fishingState = true;
-        }
-        if (this.numFish <= 0) {
-          this.sellingState = false;
-        }
-      } else {
-        this.sellingState = false;
-      }
-
-    },
-
-    stanceCheck: function() {
-      if (this.stance == true) {
-        this.stance = false;
-        if (this.numFish > 0) {
-          this.sellingState = true;
-        }
-        
-      } else {
-        this.stance = true;
-        this.sellingState = false;
-      }
-
-    },
-
-    
     todo: function () {
       setInterval(() => {
         // fish and gold each second
@@ -223,10 +234,10 @@ let root = new Vue({
         }
 
 
-       
+
         console.log("tick");
       }, 1000);
-      
+
     },
 
   },
