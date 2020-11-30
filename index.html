@@ -43,7 +43,6 @@
 
           <span class="d-block">Storage availability: {{numFish}}/{{availableStorage}}</span>
 
-
           <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="stanceCheck">At sea: {{stance}}</button>
         </div>
 
@@ -58,59 +57,59 @@
             {{this.objects.friend.cost}}</button>
 
           <!-- SELL PERMIT -->
-          <button class="d-block btn btn-info btn-sm mb-2" v-if="this.objects.permit.count < 1"
-            :disabled="numGold < this.objects.permit.cost" v-on:click="permitBuy">{{this.objects.permit.name}} -
-            {{this.objects.permit.cost}}</button>
+          <button class="d-block btn btn-info btn-sm mb-2" v-if="this.land.permit.count < 1"
+            :disabled="numGold < this.land.permit.cost" v-on:click="permitBuy">{{this.land.permit.name}} -
+            {{this.land.permit.cost}}</button>
 
           <!-- SELLER -->
-          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.seller.cost"
-            v-on:click="buySeller" v-if="this.objects.permit.count > 0">{{this.objects.seller.name}} -
-            {{this.objects.seller.cost}}</button>
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.seller.cost"
+            v-on:click="buySeller" v-if="this.land.permit.count > 0">{{this.land.seller.name}} -
+            {{this.land.seller.cost}}</button>
 
           <!-- STAND -->
-          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.stand.cost"
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.stand.cost"
             v-on:click="standBuy"
-            v-if="this.objects.permit.count > 0 && this.objects.stand.count < 1">{{this.objects.stand.name}} -
-            {{this.objects.stand.cost}}</button>
+            v-if="this.land.permit.count > 0 && this.land.stand.count < 1">{{this.land.stand.name}} -
+            {{this.land.stand.cost}}</button>
 
           <!-- CANOE -->
-          <button id="canoe-buy" class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoe.cost"
-            v-on:click="canoeBuy" v-if="this.objects.canoe.count < 1">{{this.objects.canoe.name}} -
-            {{this.objects.canoe.cost}}</button>
+          <button id="canoe-buy" class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.canoe.cost"
+            v-on:click="canoeBuy" v-if="this.sea.canoe.count < 1">{{this.sea.canoe.name}} -
+            {{this.sea.canoe.cost}}</button>
 
         </div>
       </section>
 
-      <section class="col-12 col-md pt-2" v-if="this.objects.canoe.count > 0 || this.objects.dock.count > 0">
+      <section class="col-12 col-md pt-2" v-if="this.sea.canoe.count > 0 || this.land.dock.count > 0">
         <div class="border rounded position-relative p-2 h-100">
           <h5>Upgrades</h5>
 
           <!-- CANOE -->
           <span
-            v-if="this.objects.canoe.count > 0 && this.objects.canoeextension.count <= 0">{{this.objects.canoe.name}}</span>
+            v-if="this.sea.canoe.count > 0 && this.sea.canoeextension.count <= 0">{{this.sea.canoe.name}}</span>
 
           <!-- EXTENSION -->
-          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.canoeextension.cost"
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.canoeextension.cost"
             v-on:click="canoeExtenstionBuy"
-            v-if="this.objects.canoeextension.count < 1 && this.objects.canoe.count > 0">{{this.objects.canoeextension.name}}
-            - {{this.objects.canoeextension.cost}}</button>
+            v-if="this.sea.canoeextension.count < 1 && this.sea.canoe.count > 0">{{this.sea.canoeextension.name}}
+            - {{this.sea.canoeextension.cost}}</button>
 
           <!-- DOCK -->
           <span
-            v-if="this.objects.dockstorage.count != 1 || this.objects.docklocation.count != 1">{{this.objects.dock.name}}</span>
+            v-if="this.land.dockstorage.count != 1 || this.land.docklocation.count != 1">{{this.land.dock.name}}</span>
 
           <!-- LOCATION -->
-          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.docklocation.cost"
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.docklocation.cost"
             v-on:click="dockLocationBuy"
-            v-if="this.objects.dock.count > 0 && this.objects.docklocation.count < 1">{{this.objects.docklocation.name}}
+            v-if="this.land.dock.count > 0 && this.land.docklocation.count < 1">{{this.objects.docklocation.name}}
             -
-            {{this.objects.docklocation.cost}}</button>
+            {{this.land.docklocation.cost}}</button>
 
           <!-- STORAGE -->
-          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.objects.dockstorage.cost"
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.dockstorage.cost"
             v-on:click="dockStorageBuy"
-            v-if="this.objects.dock.count > 0 && this.objects.dockstorage.count < 1">{{this.objects.dockstorage.name}} -
-            {{this.objects.dockstorage.cost}}</button>
+            v-if="this.land.dock.count > 0 && this.land.dockstorage.count < 1">{{this.land.dockstorage.name}} -
+            {{this.land.dockstorage.cost}}</button>
 
         </div>
       </section>
@@ -119,8 +118,8 @@
         <div class="border rounded position-relative p-2 h-100">
           <h5>Journal</h5>
           <span class="d-block">{{this.objects.friend.name}} - {{this.objects.friend.count}}</span>
-          <span class="d-block">{{this.objects.seller.name}} - {{this.objects.seller.count}}</span>
-          <span class="d-block">{{this.objects.canoe.name}} - {{this.objects.canoe.count}}</span>
+          <span class="d-block">{{this.land.seller.name}} - {{this.land.seller.count}}</span>
+          <span class="d-block">{{this.sea.canoe.name}} - {{this.sea.canoe.count}}</span>
 
         </div>
       </section>

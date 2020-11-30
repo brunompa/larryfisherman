@@ -16,13 +16,25 @@ let root = new Vue({
     fishingState: true,
     sellingState: false,
 
-    objects: {
-      fish: {
-        name: "Fish",
+
+    sea: {
+      canoe: {
+        name: "Canoe",
         count: 0,
-        cost: .25,
+        cost: 100,
+        fish: 0,
+        space: 1
       },
-      // selling
+      canoeextension: {
+        name: "Extension",
+        count: 0,
+        cost: 250,
+        fish: 0,
+        space: 2
+      },
+    },
+
+    land: {
       permit: {
         name: "Sell Permit",
         count: 0,
@@ -59,28 +71,23 @@ let root = new Vue({
         cost: 50,
         fish: 0
       },
-      // fishing
+    },
+
+
+    objects: {
+      fish: {
+        name: "Fish",
+        count: 0,
+        cost: .25,
+      },
+
       friend: {
         name: "Friend",
         count: 0,
         cost: 0,
         fish: 1
       },
-      // boats
-      canoe: {
-        name: "Canoe",
-        count: 0,
-        cost: 100,
-        fish: 0,
-        space: 1
-      },
-      canoeextension: {
-        name: "Extension",
-        count: 0,
-        cost: 250,
-        fish: 0,
-        space: 2
-      },
+
     },
   },
   methods: {
@@ -93,17 +100,17 @@ let root = new Vue({
     },
 
     buySeller: function () {
-      this.objects.seller.count += 1;
+      this.land.seller.count += 1;
       this.numGold -= this.objects.seller.cost;
-      this.objects.seller.cost = Math.ceil(this.objects.seller.cost * 1.5);
+      this.land.seller.cost = Math.ceil(this.land.seller.cost * 1.5);
     },
 
     permitBuy: function () {
-      this.objects.permit.count += 1;
-      this.numGold -= this.objects.permit.cost;
-      this.objects.seller.fish += .25;
+      this.land.permit.count += 1;
+      this.numGold -= this.objects.land.cost;
+      this.land.seller.fish += .25;
       this.objects.fish.cost += .25;
-      this.objects.dock.count += 1;
+      this.land.dock.count += 1;
     },
 
     friendBuy: function () {
@@ -111,37 +118,37 @@ let root = new Vue({
     },
 
     canoeBuy: function () {
-      this.objects.canoe.count += 1;
-      this.numGold -= this.objects.canoe.cost;
-      this.objects.canoe.cost = Math.ceil(this.objects.canoe.cost * 1.5);
+      this.sea.canoe.count += 1;
+      this.numGold -= this.sea.canoe.cost;
+      this.sea.canoe.cost = Math.ceil(this.sea.canoe.cost * 1.5);
 
-      this.availableSpace += this.objects.canoe.space;
+      this.availableSpace += this.sea.canoe.space;
     },
 
     canoeExtenstionBuy: function () {
-      if (this.objects.canoeextension.count >= 1) return;
-      this.objects.canoeextension.count += 1;
-      this.numGold -= this.objects.canoeextension.cost;
-      this.availableSpace += this.objects.canoeextension.space;
+      if (this.sea.canoeextension.count >= 1) return;
+      this.sea.canoeextension.count += 1;
+      this.numGold -= this.sea.canoeextension.cost;
+      this.availableSpace += this.sea.canoeextension.space;
     },
 
     dockStorageBuy: function () {
-      this.objects.dockstorage.count += 1;
-      this.numGold -= this.objects.dockstorage.cost;
+      this.land.dockstorage.count += 1;
+      this.numGold -= this.land.dockstorage.cost;
 
-      this.availableStorage += this.objects.dockstorage.storage;
+      this.availableStorage += this.land.dockstorage.storage;
     },
 
     dockLocationBuy: function () {
-      this.objects.docklocation.count += 1;
-      this.numGold -= this.objects.docklocation.cost;
+      this.land.docklocation.count += 1;
+      this.numGold -= this.land.docklocation.cost;
 
       this.objects.fish.cost += .25;
     },
 
     standBuy: function () {
-      this.objects.stand.count += 1;
-      this.numGold -= this.objects.stand.cost;
+      this.land.stand.count += 1;
+      this.numGold -= this.land.stand.cost;
     },
 
     fishCheck: function () {
@@ -198,7 +205,7 @@ let root = new Vue({
       setInterval(() => {
         // fish and gold each second
         this.numFishSec = this.objects.friend.count * this.objects.friend.fish
-        this.numGoldSec = this.objects.seller.count * this.objects.seller.fish;
+        this.numGoldSec = this.land.seller.count * this.land.seller.fish;
 
         // fish if theres available storage
         if (this.numFish < this.availableStorage && this.stance == true) {
@@ -206,12 +213,12 @@ let root = new Vue({
         }
 
         // exchange fish for gold
-        for (let i = 0; i < this.objects.seller.count; i++) {
+        for (let i = 0; i < this.land.seller.count; i++) {
           if (this.numFish < 1) {
             break
           } else {
             this.numFish--;
-            this.numGold += this.objects.seller.fish;
+            this.numGold += this.land.seller.fish;
           }
         }
 
