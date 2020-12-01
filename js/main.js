@@ -21,7 +21,7 @@ let root = new Vue({
       canoe: {
         name: "Canoe",
         count: 0,
-        cost: 100,
+        cost: 75,
         fish: 0,
         space: 1
       },
@@ -38,7 +38,7 @@ let root = new Vue({
       permit: {
         name: "Sell Permit",
         count: 0,
-        cost: 250,
+        cost: 50,
         fish: 0
       },
       seller: {
@@ -162,7 +162,7 @@ let root = new Vue({
     buySeller: function () {
       this.land.seller.count += 1;
       this.numGold -= this.land.seller.cost;
-      this.land.seller.cost = Math.ceil(this.land.seller.cost * 1.5);
+      this.land.seller.cost = Math.ceil(15 * Math.pow(1.5,this.land.seller.count));
     },
 
     permitBuy: function () {
@@ -180,7 +180,7 @@ let root = new Vue({
     canoeBuy: function () {
       this.sea.canoe.count += 1;
       this.numGold -= this.sea.canoe.cost;
-      this.sea.canoe.cost = Math.ceil(this.sea.canoe.cost * 1.5);
+      // this.sea.canoe.cost = Math.ceil(this.sea.canoe.cost * 1.5);
 
       this.availableSpace += this.sea.canoe.space;
     },
