@@ -167,7 +167,7 @@ let root = new Vue({
 
     permitBuy: function () {
       this.land.permit.count += 1;
-      this.numGold -= this.objects.land.cost;
+      this.numGold -= this.land.permit.cost;
       this.land.seller.fish += .25;
       this.objects.fish.cost += .25;
       this.land.dock.count += 1;
