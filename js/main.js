@@ -87,8 +87,7 @@ let root = new Vue({
         fish: 1
       },
 
-      // faz pescar mais por segundo?
-      // +1 peixe por segundo
+
       fishingrod: {
         name: "Fishing Rod",
         count: 0,
@@ -98,12 +97,12 @@ let root = new Vue({
 
       // faz toda a gente pescar mais por segundo?
       // sempre que compra faz x numero de pessoas e preço e faz mais 1 peixe por segundo durante 10 segundos???
-      // bait: {
-      //   name: "Bait",
-      //   count: 0,
-      //   cost: 4,
-      //   fisht: 1
-      // },
+      bait: {
+        name: "Bait",
+        count: 0,
+        cost: 4,
+        fisht: 1
+      },
 
     },
   },
@@ -112,7 +111,11 @@ let root = new Vue({
       if (this.numFish < this.availableStorage) {
         this.numFish++
 
-        if (this.objects.fishingrod.count > 0) {
+        if (this.objects.fishingrod.count > 0 && this.objects.bait.count > 0) {
+          this.objects.bait.count--;
+          this.numFish++;
+        }
+        if (this.objects.fishingrod.count > 0 && this.availableStorage > this.numFish) {
           this.numFish++
         }
         if (this.numFish >= this.availableStorage) {
@@ -180,7 +183,6 @@ let root = new Vue({
     canoeBuy: function () {
       this.sea.canoe.count += 1;
       this.numGold -= this.sea.canoe.cost;
-      // this.sea.canoe.cost = Math.ceil(this.sea.canoe.cost * 1.5);
 
       this.availableSpace += this.sea.canoe.space;
     },
@@ -211,6 +213,11 @@ let root = new Vue({
       this.numGold -= this.land.stand.cost;
     },
 
+    baitBuy: function () {
+      this.objects.bait.count += 10;
+      this.numGold -= this.objects.bait.cost;
+
+    },
 
     todo: function () {
       setInterval(() => {
