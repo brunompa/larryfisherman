@@ -95,8 +95,6 @@ let root = new Vue({
         fish: 1
       },
 
-      // faz toda a gente pescar mais por segundo?
-      // sempre que compra faz x numero de pessoas e preço e faz mais 1 peixe por segundo durante 10 segundos???
       bait: {
         name: "Bait",
         count: 0,
@@ -165,7 +163,7 @@ let root = new Vue({
     buySeller: function () {
       this.land.seller.count += 1;
       this.numGold -= this.land.seller.cost;
-      this.land.seller.cost = Math.ceil(15 * Math.pow(1.5,this.land.seller.count));
+      this.land.seller.cost = Math.ceil(15 * Math.pow(1.5, this.land.seller.count));
     },
 
     permitBuy: function () {
@@ -228,6 +226,11 @@ let root = new Vue({
         // fish if theres available storage
         if (this.numFish < this.availableStorage && this.stance == true) {
           this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
+          if (this.numFish < this.availableStorage) {
+            this.fishingState = true;
+          } else {
+            this.fishingState = false;
+          }
         }
 
         // exchange fish for gold
@@ -237,6 +240,14 @@ let root = new Vue({
           } else {
             this.numFish--;
             this.numGold += this.land.seller.fish;
+
+            if (this.numFish < this.availableStorage) {
+              this.fishingState = true;
+            } else {
+              this.fishingState = false;
+            }
+
+
           }
         }
 
