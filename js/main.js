@@ -2,7 +2,7 @@ let root = new Vue({
   el: "#root",
 
   data: {
-    numGold: 0,
+    numGold: 10000,
 
     numFishSec: 0,
     numGoldSec: 0,
@@ -14,6 +14,8 @@ let root = new Vue({
 
     fishingState: true,
     sellingState: false,
+
+    tutorial: true,
 
 
     sea: {
@@ -245,12 +247,8 @@ let root = new Vue({
             } else {
               this.fishingState = false;
             }
-
-
           }
         }
-
-
 
         console.log("tick");
       }, 1000);

@@ -147,6 +147,10 @@ summary {
 body {
   background-color: #000000;
   color: #FFFFFF;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 section div {

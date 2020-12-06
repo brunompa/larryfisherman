@@ -34,10 +34,12 @@
           <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1" v-on:click="fishCheck"
             :disabled="fishingState == !true">Fish</button>
 
-          <button class="btn btn-warning btn-sm mr-1 mb-1 mt-1" v-on:click="sellCheck" :disabled="sellingState == !true">Sell
+          <button class="btn btn-warning btn-sm mr-1 mb-1 mt-1" v-on:click="sellCheck"
+            :disabled="sellingState == !true">Sell
             Fish</button>
 
-          <span class="d-block">Fish: <span class="mr-5">{{objects.fish.count}}</span> <span>{{numFishSec}}/s</span></span>
+          <span class="d-block">Fish: <span class="mr-5">{{objects.fish.count}}</span>
+            <span>{{numFishSec}}/s</span></span>
 
           <span class="d-block">Gold: <span class="mr-5">{{numGold}}</span> <span>{{numGoldSec}}/s</span></span>
 
@@ -54,23 +56,36 @@
 
           <!-- FISHING ROD -->
           <button class="d-block btn btn-info btn-sm mb-2" v-on:click="buyFishingRod"
-          v-if="this.objects.fishingrod.count < 1 " :disabled="numGold < this.objects.fishingrod.cost">{{this.objects.fishingrod.name}} -
+            v-if="this.objects.fishingrod.count < 1 "
+            :disabled="numGold < this.objects.fishingrod.cost">{{this.objects.fishingrod.name}} -
             {{this.objects.fishingrod.cost}}</button>
 
           <!-- BAIT -->
-          <button class="d-block btn btn-info btn-sm mb-2" v-on:click="baitBuy"
-          v-if="this.objects.fishingrod.count > 0" :disabled="numGold < this.objects.bait.cost">{{this.objects.bait.name}} -
+          <button class="d-block btn btn-info btn-sm mb-2" v-on:click="baitBuy" v-if="this.objects.fishingrod.count > 0"
+            :disabled="numGold < this.objects.bait.cost">{{this.objects.bait.name}} -
             {{this.objects.bait.cost}}</button>
 
-            <!-- FRIEND -->
-          <button class="d-block btn btn-info btn-sm mb-2" v-on:click="friendBuy"
+          <!-- FRIEND -->
+          <button id="somethingelse" class="d-inline btn btn-info btn-sm mb-2" v-on:click="friendBuy"
             v-if="availableSpace > this.objects.friend.count">{{this.objects.friend.name}} -
             {{this.objects.friend.cost}}</button>
+          <!-- <button type="button" class=" btn btn-primary btn-sm mb-2" data-toggle="tooltip" data-placement="right"
+            v-if="availableSpace > this.objects.friend.count && this.tutorial == true"
+            title="A friend fishes for you when at sea 1f/s">
+            ?
+          </button> -->
 
           <!-- SELL PERMIT -->
-          <button class="d-block btn btn-info btn-sm mb-2" v-if="this.land.permit.count < 1"
-            :disabled="numGold < this.land.permit.cost" v-on:click="permitBuy">{{this.land.permit.name}} -
-            {{this.land.permit.cost}}</button>
+          <div class="d-block">
+            <button class="d-inline btn btn-info btn-sm mb-2" v-if="this.land.permit.count < 1"
+              :disabled="numGold < this.land.permit.cost" v-on:click="permitBuy">{{this.land.permit.name}} -
+              {{this.land.permit.cost}}</button>
+            <!-- <button type="button" class=" btn btn-primary btn-sm mb-2" data-toggle="tooltip" data-placement="right"
+              v-if="this.land.permit.count < 1 && this.tutorial == true"
+              title="Buying a permit allows you to hire sellers">
+              ?
+            </button> -->
+          </div>
 
           <!-- SELLER -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.seller.cost"
@@ -84,9 +99,15 @@
             {{this.land.stand.cost}}</button>
 
           <!-- CANOE -->
-          <button id="canoe-buy" class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.canoe.cost"
+          <button id="canoe-buy" class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.canoe.cost"
             v-on:click="canoeBuy" v-if="this.sea.canoe.count < 1">{{this.sea.canoe.name}} -
-            {{this.sea.canoe.cost}}</button>
+            {{this.sea.canoe.cost}} </button>
+          <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="tooltip" data-placement="right"
+            title="You buy a canoe so you can fish with friends at sea"
+            v-if="this.sea.canoe.count < 1 && this.tutorial == true">
+            ?
+          </button> -->
+
 
         </div>
       </section>
@@ -96,8 +117,7 @@
           <h5>Upgrades</h5>
 
           <!-- CANOE -->
-          <span
-            v-if="this.sea.canoe.count > 0 && this.sea.canoeextension.count <= 0">{{this.sea.canoe.name}}</span>
+          <span v-if="this.sea.canoe.count > 0 && this.sea.canoeextension.count <= 0">{{this.sea.canoe.name}}</span>
 
           <!-- EXTENSION -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.canoeextension.cost"
@@ -147,9 +167,15 @@
     integrity="sha384-t6I8D5dJmMXjCsRLhSzCltuhNZg6P10kE0m0nAncLUjH6GeYLhRU1zfLoW3QNQDF" crossorigin="anonymous">
     </script>
 
-<script src="js/main.js" charset="utf-8" type="text/javascript"></script>
+  <script src="js/main.js" charset="utf-8" type="text/javascript"></script>
 
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 
+  </script>
 </body>
 
 </html>
