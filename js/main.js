@@ -2,7 +2,6 @@ let root = new Vue({
   el: "#root",
 
   data: {
-    numFish: 0,
     numGold: 0,
 
     numFishSec: 0,
@@ -106,20 +105,20 @@ let root = new Vue({
   },
   methods: {
     fishCheck: function () {
-      if (this.numFish < this.availableStorage) {
-        this.numFish++
+      if (this.objects.fish.count < this.availableStorage) {
+        this.objects.fish.count++
 
         if (this.objects.fishingrod.count > 0 && this.objects.bait.count > 0) {
           this.objects.bait.count--;
-          this.numFish++;
+          this.objects.fish.count++;
         }
-        if (this.objects.fishingrod.count > 0 && this.availableStorage > this.numFish) {
-          this.numFish++
+        if (this.objects.fishingrod.count > 0 && this.availableStorage > this.objects.fish.count) {
+          this.objects.fish.count++
         }
-        if (this.numFish >= this.availableStorage) {
+        if (this.objects.fish.count >= this.availableStorage) {
           this.fishingState = false;
         }
-        if (this.numFish > 0 && this.stance == false) {
+        if (this.objects.fish.count > 0 && this.stance == false) {
           this.sellingState = true;
         }
 
@@ -129,13 +128,13 @@ let root = new Vue({
     },
 
     sellCheck: function () {
-      if (this.numFish > 0 && this.stance == false) {
-        this.numFish--
+      if (this.objects.fish.count > 0 && this.stance == false) {
+        this.objects.fish.count--
         this.numGold += this.objects.fish.cost
-        if (this.numFish < this.availableStorage) {
+        if (this.objects.fish.count < this.availableStorage) {
           this.fishingState = true;
         }
-        if (this.numFish <= 0) {
+        if (this.objects.fish.count <= 0) {
           this.sellingState = false;
         }
       } else {
@@ -146,7 +145,7 @@ let root = new Vue({
     stanceCheck: function () {
       if (this.stance == true) {
         this.stance = false;
-        if (this.numFish > 0) {
+        if (this.objects.fish.count > 0) {
           this.sellingState = true;
         }
       } else {
@@ -224,9 +223,9 @@ let root = new Vue({
         this.numGoldSec = this.land.seller.count * this.land.seller.fish;
 
         // fish if theres available storage
-        if (this.numFish < this.availableStorage && this.stance == true) {
-          this.numFish += Math.round(this.objects.friend.count * this.objects.friend.fish);
-          if (this.numFish < this.availableStorage) {
+        if (this.objects.fish.count < this.availableStorage && this.stance == true) {
+          this.objects.fish.count += Math.round(this.objects.friend.count * this.objects.friend.fish);
+          if (this.objects.fish.count < this.availableStorage) {
             this.fishingState = true;
           } else {
             this.fishingState = false;
@@ -235,13 +234,13 @@ let root = new Vue({
 
         // exchange fish for gold
         for (let i = 0; i < this.land.seller.count; i++) {
-          if (this.numFish < 1) {
+          if (this.objects.fish.count < 1) {
             break
           } else {
-            this.numFish--;
+            this.objects.fish.count--;
             this.numGold += this.land.seller.fish;
 
-            if (this.numFish < this.availableStorage) {
+            if (this.objects.fish.count < this.availableStorage) {
               this.fishingState = true;
             } else {
               this.fishingState = false;
