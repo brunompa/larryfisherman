@@ -108,6 +108,12 @@
             ?
           </button> -->
 
+          <!-- STORE -->
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.store.cost"
+            v-on:click="storeBuy"
+            v-if="this.land.stand.count > 0 && this.land.store.count < 1">{{this.land.store.name}} -
+            {{this.land.store.cost}}</button>
+
 
         </div>
       </section>

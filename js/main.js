@@ -63,14 +63,17 @@ let root = new Vue({
         name: "More Storage",
         count: 0,
         cost: 300,
-        fish: 0,
         storage: 1000
       },
       stand: {
         name: "Selling Stand",
         count: 0,
         cost: 50,
-        fish: 0
+      },
+      store: {
+        name: "Store",
+        count: 0,
+        cost: 1500,
       },
     },
 
@@ -216,6 +219,13 @@ let root = new Vue({
       this.objects.bait.count += 10;
       this.numGold -= this.objects.bait.cost;
 
+    },
+
+    storeBuy: function () {
+      this.land.store.count += 1;
+      this.numGold -= this.land.store.cost;
+
+      this.objects.fish.cost += .25;
     },
 
     todo: function () {
