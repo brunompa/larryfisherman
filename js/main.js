@@ -23,15 +23,19 @@ let root = new Vue({
         name: "Canoe",
         count: 0,
         cost: 75,
-        fish: 0,
         space: 1
       },
       canoeextension: {
         name: "Extension",
         count: 0,
         cost: 250,
-        fish: 0,
         space: 2
+      },
+      deckboat: {
+        name: "Deck Boat",
+        count: 0,
+        cost: 750,
+        space: 3,
       },
     },
 
@@ -218,7 +222,6 @@ let root = new Vue({
     baitBuy: function () {
       this.objects.bait.count += 10;
       this.numGold -= this.objects.bait.cost;
-
     },
 
     storeBuy: function () {
@@ -226,6 +229,13 @@ let root = new Vue({
       this.numGold -= this.land.store.cost;
 
       this.objects.fish.cost += .25;
+    },
+
+    deckboatBuy: function () {
+      this.sea.deckboat.count += 1;
+      this.numGold -= this.sea.deckboat.cost;
+
+      this.availableSpace += this.sea.deckboat.space;
     },
 
     todo: function () {

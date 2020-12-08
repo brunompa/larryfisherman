@@ -99,7 +99,7 @@
             {{this.land.stand.cost}}</button>
 
           <!-- CANOE -->
-          <button id="canoe-buy" class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.canoe.cost"
+          <button class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.canoe.cost"
             v-on:click="canoeBuy" v-if="this.sea.canoe.count < 1">{{this.sea.canoe.name}} -
             {{this.sea.canoe.cost}} </button>
           <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="tooltip" data-placement="right"
@@ -114,6 +114,10 @@
             v-if="this.land.stand.count > 0 && this.land.store.count < 1">{{this.land.store.name}} -
             {{this.land.store.cost}}</button>
 
+          <!-- DECKBOAT -->
+          <button class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.deckboat.cost"
+            v-on:click="deckboatBuy" v-if="this.sea.deckboat.count < 1 && this.sea.canoe.count > 1">{{this.sea.deckboat.name}} -
+            {{this.sea.deckboat.cost}} </button>
 
         </div>
       </section>
