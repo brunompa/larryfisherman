@@ -40,8 +40,14 @@ let root = new Vue({
       sailboat: {
         name: "Sail Boat",
         count: 0,
-        cost: 750,
+        cost: 1500,
         space: 7,
+      },
+      trawler: {
+        name: "Trawler",
+        count: 0,
+        cost: 2300,
+        space: 12,
       },
     },
 
@@ -245,6 +251,13 @@ let root = new Vue({
     },
 
     sailboatBuy: function () {
+      this.sea.sailboat.count += 1;
+      this.numGold -= this.sea.sailboat.cost;
+
+      this.availableSpace += this.sea.sailboat.space;
+    },
+
+    trawlerBuy: function () {
       this.sea.sailboat.count += 1;
       this.numGold -= this.sea.sailboat.cost;
 
