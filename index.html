@@ -117,17 +117,17 @@
           <!-- DECKBOAT -->
           <button class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.deckboat.cost"
             v-on:click="deckboatBuy" v-if="this.sea.deckboat.count < 1 && this.sea.canoe.count > 0">{{this.sea.deckboat.name}} -
-            {{this.sea.deckboat.cost}} </button>
+            {{this.sea.deckboat.cost}}</button>
 
           <!-- SAILBOAT -->
           <button class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.sailboat.cost"
           v-on:click="sailboatBuy" v-if="this.sea.sailboat.count < 1 && this.sea.deckboat.count > 0">{{this.sea.sailboat.name}} -
-          {{this.sea.sailboat.cost}} </button>
+          {{this.sea.sailboat.cost}}</button>
 
           <!-- TRAWLER -->
           <button class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.trawler.cost"
           v-on:click="trawlerBuy" v-if="this.sea.trawler.count < 1 && this.sea.sailboat.count > 0">{{this.sea.trawler.name}} -
-          {{this.sea.trawler.cost}} </button>
+          {{this.sea.trawler.cost}}</button>
 
 
         </div>

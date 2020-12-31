@@ -258,10 +258,10 @@ let root = new Vue({
     },
 
     trawlerBuy: function () {
-      this.sea.sailboat.count += 1;
-      this.numGold -= this.sea.sailboat.cost;
+      this.sea.trawler.count += 1;
+      this.numGold -= this.sea.trawler.cost;
 
-      this.availableSpace += this.sea.sailboat.space;
+      this.availableSpace += this.sea.trawler.space;
     },
 
     todo: function () {
@@ -296,7 +296,7 @@ let root = new Vue({
           }
         }
 
-        console.log("tick");
+        // console.log("tick");
       }, 1000);
 
     },
