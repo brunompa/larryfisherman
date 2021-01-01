@@ -110,24 +110,27 @@
 
           <!-- STORE -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.store.cost"
-            v-on:click="storeBuy"
-            v-if="this.land.stand.count > 0 && this.land.store.count < 1">{{this.land.store.name}} -
+            v-on:click="storeBuy" v-if="this.land.stand.count > 0 && this.land.store.count < 1">{{this.land.store.name}}
+            -
             {{this.land.store.cost}}</button>
 
           <!-- DECKBOAT -->
           <button class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.deckboat.cost"
-            v-on:click="deckboatBuy" v-if="this.sea.deckboat.count < 1 && this.sea.canoe.count > 0">{{this.sea.deckboat.name}} -
+            v-on:click="deckboatBuy"
+            v-if="this.sea.deckboat.count < 1 && this.sea.canoe.count > 0">{{this.sea.deckboat.name}} -
             {{this.sea.deckboat.cost}}</button>
 
           <!-- SAILBOAT -->
           <button class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.sailboat.cost"
-          v-on:click="sailboatBuy" v-if="this.sea.sailboat.count < 1 && this.sea.deckboat.count > 0">{{this.sea.sailboat.name}} -
-          {{this.sea.sailboat.cost}}</button>
+            v-on:click="sailboatBuy"
+            v-if="this.sea.sailboat.count < 1 && this.sea.deckboat.count > 0">{{this.sea.sailboat.name}} -
+            {{this.sea.sailboat.cost}}</button>
 
           <!-- TRAWLER -->
           <button class="d-inline btn btn-info btn-sm mb-2" :disabled="numGold < this.sea.trawler.cost"
-          v-on:click="trawlerBuy" v-if="this.sea.trawler.count < 1 && this.sea.sailboat.count > 0">{{this.sea.trawler.name}} -
-          {{this.sea.trawler.cost}}</button>
+            v-on:click="trawlerBuy"
+            v-if="this.sea.trawler.count < 1 && this.sea.sailboat.count > 0">{{this.sea.trawler.name}} -
+            {{this.sea.trawler.cost}}</button>
 
 
         </div>
@@ -163,6 +166,18 @@
             v-if="this.land.dock.count > 0 && this.land.dockstorage.count < 1">{{this.land.dockstorage.name}} -
             {{this.land.dockstorage.cost}}</button>
 
+          <!-- STORE -->
+          <span v-if="this.land.store.count != 1 && this.land.storelocation.count != 1">{{this.land.store.name}}</span>
+
+          <!-- LOCATION -->
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.storelocation.cost"
+            v-on:click="storeLocationBuy"
+            v-if="this.land.store.count > 0 && this.land.storelocation.count < 1">{{this.land.storelocation.name}}
+            -
+            {{this.land.storelocation.cost}}</button>
+
+
+
         </div>
       </section>
 
@@ -183,10 +198,10 @@
   <!-- boostrap 5 cdn -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
     integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-    </script>
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.min.js"
     integrity="sha384-t6I8D5dJmMXjCsRLhSzCltuhNZg6P10kE0m0nAncLUjH6GeYLhRU1zfLoW3QNQDF" crossorigin="anonymous">
-    </script>
+  </script>
 
   <script src="js/main.js" charset="utf-8" type="text/javascript"></script>
 
@@ -195,7 +210,6 @@
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-
   </script>
 </body>
 

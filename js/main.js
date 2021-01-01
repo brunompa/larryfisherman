@@ -91,6 +91,11 @@ let root = new Vue({
         count: 0,
         cost: 1500,
       },
+      storelocation: {
+        name: "Better Location",
+        count: 0,
+        cost: 5000,
+      },
     },
 
     objects: {
@@ -241,6 +246,13 @@ let root = new Vue({
       this.numGold -= this.land.store.cost;
 
       this.objects.fish.cost += .25;
+    },
+
+    storeLocationBuy: function () {
+      this.land.storelocation.count += 1;
+      this.numGold -= this.land.storelocation.cost;
+
+      this.objects.fish.cost += .5;
     },
 
     deckboatBuy: function () {
