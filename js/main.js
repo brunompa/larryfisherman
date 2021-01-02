@@ -2,7 +2,7 @@ let root = new Vue({
   el: "#root",
 
   data: {
-    numGold: 10000,
+    numGold: 0,
 
     numFishSec: 0,
     numGoldSec: 0,
@@ -14,6 +14,8 @@ let root = new Vue({
 
     fishingState: true,
     sellingState: false,
+
+    fishingDepth: 0,
 
     tutorial: true,
 
@@ -274,6 +276,11 @@ let root = new Vue({
       this.numGold -= this.sea.trawler.cost;
 
       this.availableSpace += this.sea.trawler.space;
+    },
+
+    changeFishingDepth: function () {
+      this.fishingDepth = document.getElementById("fishingDepth").value;
+      console.log(document.getElementById("fishingDepth").value);
     },
 
     todo: function () {
