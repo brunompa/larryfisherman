@@ -183,19 +183,18 @@ let root = new Vue({
     },
 
     buyFishingRod: function () {
-      this.objects.fishingrod.count += 1;
-      this.numGold -= this.objects.fishingrod.cost;
+      this.itemBuy("objects", "fishingrod");
     },
 
     buySeller: function () {
-      this.land.seller.count += 1;
-      this.numGold -= this.land.seller.cost;
+      this.itemBuy("land", "seller");
+
       this.land.seller.cost = Math.ceil(15 * Math.pow(1.5, this.land.seller.count));
     },
 
     permitBuy: function () {
-      this.land.permit.count += 1;
-      this.numGold -= this.land.permit.cost;
+      this.itemBuy("land", "permit");
+
       this.land.seller.fish += .25;
       this.objects.fish.cost += .25;
       this.land.dock.count += 1;
@@ -206,74 +205,64 @@ let root = new Vue({
     },
 
     canoeBuy: function () {
-      this.sea.canoe.count += 1;
-      this.numGold -= this.sea.canoe.cost;
+      this.itemBuy("sea", "canoe");
 
       this.availableSpace += this.sea.canoe.space;
     },
 
     canoeExtenstionBuy: function () {
       if (this.sea.canoeextension.count >= 1) return;
-      this.sea.canoeextension.count += 1;
-      this.numGold -= this.sea.canoeextension.cost;
+      this.itemBuy("sea", "canoeextension");
+
       this.availableSpace += this.sea.canoeextension.space;
     },
 
     dockStorageBuy: function () {
-      this.land.dockstorage.count += 1;
-      this.numGold -= this.land.dockstorage.cost;
+      this.itemBuy("land", "dockstorage");
 
       this.availableStorage += this.land.dockstorage.storage;
     },
 
     dockLocationBuy: function () {
-      this.land.docklocation.count += 1;
-      this.numGold -= this.land.docklocation.cost;
+      this.itemBuy("land", "docklocation");
 
       this.objects.fish.cost += .25;
     },
 
     standBuy: function () {
-      this.land.stand.count += 1;
-      this.numGold -= this.land.stand.cost;
+      this.itemBuy("land", "stand");
     },
 
     baitBuy: function () {
-      this.objects.bait.count += 10;
-      this.numGold -= this.objects.bait.cost;
+      this.itemBuy("objects", "bait");
     },
 
     storeBuy: function () {
-      this.land.store.count += 1;
-      this.numGold -= this.land.store.cost;
+      this.itemBuy("land", "store");
 
       this.objects.fish.cost += .25;
     },
 
     storeLocationBuy: function () {
-      this.land.storelocation.count += 1;
-      this.numGold -= this.land.storelocation.cost;
+      this.itemBuy("land", "storelocation");
 
       this.objects.fish.cost += .5;
     },
 
     deckboatBuy: function () {
-      this.sea.deckboat.count += 1;
-      this.numGold -= this.sea.deckboat.cost;
+      this.itemBuy("sea", "deckboat");
 
       this.availableSpace += this.sea.deckboat.space;
     },
 
     sailboatBuy: function () {
-      this.sea.sailboat.count += 1;
-      this.numGold -= this.sea.sailboat.cost;
+      this.itemBuy("sea", "sailboat");
 
       this.availableSpace += this.sea.sailboat.space;
     },
 
     trawlerBuy: function () {
-      this.sea.trawler.count += 1;
-      this.numGold -= this.sea.trawler.cost;
+      this.itemBuy("sea", "trawler");
 
       this.availableSpace += this.sea.trawler.space;
     },
@@ -283,10 +272,15 @@ let root = new Vue({
       console.log(document.getElementById("fishingDepth").value);
     },
 
+    itemBuy: function (param1, object) {
+      this[param1][object].count += 1;
+      this.numGold -= this[param1][object].cost;
+    },
+
     todo: function () {
       setInterval(() => {
         // fish and gold each second
-        this.numFishSec = this.objects.friend.count * this.objects.friend.fish
+        this.numFishSec = this.objects.friend.count * this.objects.friend.fish;
         this.numGoldSec = this.land.seller.count * this.land.seller.fish;
 
         // fish if theres available storage
