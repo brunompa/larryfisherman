@@ -98,6 +98,7 @@ let root = new Vue({
         count: 0,
         cost: 5000,
       },
+      
     },
 
     objects: {
@@ -113,7 +114,6 @@ let root = new Vue({
         cost: 0,
         fish: 1
       },
-
 
       fishingrod: {
         name: "Fishing Rod",

@@ -38,7 +38,7 @@
             :disabled="sellingState == !true">Sell
             Fish</button>
 
-          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1 float-right" v-on:click="stanceCheck">At sea: {{stance}}</button>
+          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1 float-right" v-if="this.sea.canoe.count > 0 " v-on:click="stanceCheck">At sea: {{stance}}</button>
 
 
           <span class="d-block">Fish: <span class="mr-5">{{objects.fish.count}}</span>
