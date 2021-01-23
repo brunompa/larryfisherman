@@ -43,7 +43,7 @@ code, kbd, pre, samp {
 }
 
 a {
-  background-color: transparent;
+  parent-bg: transparent;
 }
 
 abbr[title] {
@@ -145,8 +145,8 @@ summary {
 }
 
 body {
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: #9BA1A2;
+  color: #C1C4C5;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -155,5 +155,10 @@ body {
 
 section div {
   border-radius: 3px;
-  background-color: #121212;
+  background-color: #364144;
+}
+
+.border {
+  border-color: #C3C4C4 !important;
+  border-width: 2px !important;
 }
