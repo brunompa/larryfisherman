@@ -7,13 +7,13 @@ let root = new Vue({
     numFishSec: 0,
     numGoldSec: 0,
 
-    stance: true,
+    stance: false,
 
     availableSpace: 0,
     availableStorage: 100,
 
     fishingState: true,
-    sellingState: false,
+    sellingState: true,
 
     fishingDepth: 0,
 
