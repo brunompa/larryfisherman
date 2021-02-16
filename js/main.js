@@ -57,7 +57,7 @@ let root = new Vue({
       permit: {
         name: "Sell Permit",
         count: 0,
-        cost: 50,
+        cost: 25,
         fish: 0
       },
       seller: {
@@ -74,13 +74,13 @@ let root = new Vue({
       docklocation: {
         name: "Better Location",
         count: 0,
-        cost: 300,
+        cost: 200,
         fish: 0
       },
       dockstorage: {
         name: "More Storage",
         count: 0,
-        cost: 300,
+        cost: 200,
         storage: 1000
       },
       stand: {
@@ -91,12 +91,12 @@ let root = new Vue({
       store: {
         name: "Store",
         count: 0,
-        cost: 1500,
+        cost: 750,
       },
       storelocation: {
         name: "Better Location",
         count: 0,
-        cost: 5000,
+        cost: 1500,
       },
       
     },
@@ -106,6 +106,7 @@ let root = new Vue({
         name: "Fish",
         count: 0,
         cost: .25,
+        total: 0
       },
 
       friend: {
@@ -115,17 +116,25 @@ let root = new Vue({
         fish: 1
       },
 
+      worker: {
+        name: "Employee",
+        count: 0,
+        cost: 25,
+        fish: 1
+      },
+
       fishingrod: {
         name: "Fishing Rod",
         count: 0,
-        cost: 15,
-        fish: 1
+        cost: 5,
+        fish: 1,
+        space: 1
       },
 
       bait: {
         name: "Bait",
         count: 0,
-        cost: 4,
+        cost: 1,
         fisht: 1
       },
 
@@ -184,12 +193,18 @@ let root = new Vue({
 
     buyFishingRod: function () {
       this.itemBuy("objects", "fishingrod");
+      this.availableSpace += this.objects.fishingrod.space;
+
     },
 
     buySeller: function () {
       this.itemBuy("land", "seller");
-
       this.land.seller.cost = Math.ceil(15 * Math.pow(1.5, this.land.seller.count));
+    },
+
+    workerBuy: function() {
+        this.itemBuy("objects", "worker");
+        this.objects.worker.cost = Math.ceil(15 * Math.pow(1.5, this.objects.worker.count));
     },
 
     permitBuy: function () {
@@ -206,14 +221,12 @@ let root = new Vue({
 
     canoeBuy: function () {
       this.itemBuy("sea", "canoe");
-
       this.availableSpace += this.sea.canoe.space;
     },
 
     canoeExtenstionBuy: function () {
       if (this.sea.canoeextension.count >= 1) return;
       this.itemBuy("sea", "canoeextension");
-
       this.availableSpace += this.sea.canoeextension.space;
     },
 
@@ -225,7 +238,6 @@ let root = new Vue({
 
     dockLocationBuy: function () {
       this.itemBuy("land", "docklocation");
-
       this.objects.fish.cost += .25;
     },
 
@@ -239,31 +251,26 @@ let root = new Vue({
 
     storeBuy: function () {
       this.itemBuy("land", "store");
-
       this.objects.fish.cost += .25;
     },
 
     storeLocationBuy: function () {
       this.itemBuy("land", "storelocation");
-
       this.objects.fish.cost += .5;
     },
 
     deckboatBuy: function () {
       this.itemBuy("sea", "deckboat");
-
       this.availableSpace += this.sea.deckboat.space;
     },
 
     sailboatBuy: function () {
       this.itemBuy("sea", "sailboat");
-
       this.availableSpace += this.sea.sailboat.space;
     },
 
     trawlerBuy: function () {
       this.itemBuy("sea", "trawler");
-
       this.availableSpace += this.sea.trawler.space;
     },
 
@@ -280,12 +287,12 @@ let root = new Vue({
     todo: function () {
       setInterval(() => {
         // fish and gold each second
-        this.numFishSec = this.objects.friend.count * this.objects.friend.fish;
+        this.numFishSec = this.objects.friend.count * this.objects.friend.fish + this.objects.worker.count * this.objects.worker.fish;
         this.numGoldSec = this.land.seller.count * this.land.seller.fish;
 
         // fish if theres available storage
         if (this.objects.fish.count < this.availableStorage && this.stance == true) {
-          this.objects.fish.count += Math.round(this.objects.friend.count * this.objects.friend.fish);
+          this.objects.fish.count += Math.round(this.objects.friend.count * this.objects.friend.fish + this.objects.worker.count * this.objects.worker.fish);
           if (this.objects.fish.count < this.availableStorage) {
             this.fishingState = true;
           } else {
@@ -316,7 +323,6 @@ let root = new Vue({
 
   },
   mounted: function () {
-
     this.todo()
   },
 

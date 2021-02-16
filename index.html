@@ -38,7 +38,7 @@
             :disabled="sellingState == !true">Sell
             Fish</button>
 
-          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1 float-right" v-if="this.sea.canoe.count > 0 " v-on:click="stanceCheck">At sea: {{stance}}</button>
+          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1 float-right" v-if="this.objects.friend.count > 0 " v-on:click="stanceCheck">At sea: {{stance}}</button>
 
 
           <span class="d-block">Fish: <span class="mr-5">{{objects.fish.count}}</span>
@@ -71,6 +71,10 @@
           <button class="d-block btn btn-info btn-sm mb-2" v-on:click="baitBuy" v-if="this.objects.fishingrod.count > 0"
             :disabled="numGold < this.objects.bait.cost">{{this.objects.bait.name}} -
             {{this.objects.bait.cost}}</button>
+
+          <!-- WORKER -->
+          <button class="d-block btn btn-info btn-sm mb-2" v-on:click="workerBuy" :disabled="numGold < this.objects.worker.cost">{{this.objects.worker.name}} -
+            {{this.objects.worker.cost}}</button>
 
           <!-- FRIEND -->
           <button id="somethingelse" class="d-inline btn btn-info btn-sm mb-2" v-on:click="friendBuy"
@@ -192,9 +196,14 @@
         <div class="border rounded position-relative p-3 h-100">
           <h5>Journal</h5>
           <span class="d-block">{{this.objects.friend.name}} - {{this.objects.friend.count}}</span>
+          <span class="d-block">{{this.objects.worker.name}} - {{this.objects.worker.count}}</span>
           <span class="d-block">{{this.land.seller.name}} - {{this.land.seller.count}}</span>
           <span class="d-block">{{this.sea.canoe.name}} - {{this.sea.canoe.count}}</span>
 
+          
+          <!-- fix the amount of fish making, add a value that never removes -->
+          <span class="d-block">Total fish - {{this.objects.fish.count}}</span>
+          
         </div>
       </section>
     </div>
