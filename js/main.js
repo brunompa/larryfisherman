@@ -98,7 +98,6 @@ let root = new Vue({
         count: 0,
         cost: 1500,
       },
-      
     },
 
     objects: {
@@ -108,21 +107,18 @@ let root = new Vue({
         cost: .25,
         total: 0
       },
-
       friend: {
         name: "Friend",
         count: 0,
         cost: 0,
         fish: 1
       },
-
       worker: {
         name: "Employee",
         count: 0,
         cost: 25,
         fish: 1
       },
-
       fishingrod: {
         name: "Fishing Rod",
         count: 0,
@@ -130,14 +126,12 @@ let root = new Vue({
         fish: 1,
         space: 1
       },
-
       bait: {
         name: "Bait",
         count: 0,
         cost: 1,
-        fisht: 1
+        fish: 1
       },
-
     },
   },
   methods: {
@@ -158,7 +152,6 @@ let root = new Vue({
         if (this.objects.fish.count > 0 && this.stance == false) {
           this.sellingState = true;
         }
-
       } else {
         this.fishingState = false;
       }
@@ -194,12 +187,11 @@ let root = new Vue({
     buyFishingRod: function () {
       this.itemBuy("objects", "fishingrod");
       this.availableSpace += this.objects.fishingrod.space;
-
     },
 
     buySeller: function () {
       this.itemBuy("land", "seller");
-      this.land.seller.cost = Math.ceil(15 * Math.pow(1.5, this.land.seller.count));
+      this.land.seller.cost = Math.ceil(15 * Math.pow(1.3, this.land.seller.count));
     },
 
     workerBuy: function() {
@@ -209,7 +201,6 @@ let root = new Vue({
 
     permitBuy: function () {
       this.itemBuy("land", "permit");
-
       this.land.seller.fish += .25;
       this.objects.fish.cost += .25;
       this.land.dock.count += 1;
@@ -232,13 +223,13 @@ let root = new Vue({
 
     dockStorageBuy: function () {
       this.itemBuy("land", "dockstorage");
-
       this.availableStorage += this.land.dockstorage.storage;
     },
 
     dockLocationBuy: function () {
       this.itemBuy("land", "docklocation");
       this.objects.fish.cost += .25;
+      this.land.seller.fish += .25;
     },
 
     standBuy: function () {
@@ -246,7 +237,8 @@ let root = new Vue({
     },
 
     baitBuy: function () {
-      this.itemBuy("objects", "bait");
+      this.objects.bait.count += 10;
+      this.numGold -= this.objects.bait.cost;
     },
 
     storeBuy: function () {
@@ -318,12 +310,9 @@ let root = new Vue({
 
         // console.log("tick");
       }, 1000);
-
     },
-
   },
   mounted: function () {
     this.todo()
   },
-
 });

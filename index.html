@@ -178,7 +178,7 @@
             {{this.land.dockstorage.cost}}</button>
 
           <!-- STORE -->
-          <span v-if="this.land.store.count != 1 && this.land.storelocation.count != 1">{{this.land.store.name}}</span>
+          <span v-if="this.land.store.count > 0 && this.land.storelocation.count != 1">{{this.land.store.name}}</span>
 
           <!-- LOCATION -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.storelocation.cost"
@@ -199,10 +199,12 @@
           <span class="d-block">{{this.objects.worker.name}} - {{this.objects.worker.count}}</span>
           <span class="d-block">{{this.land.seller.name}} - {{this.land.seller.count}}</span>
           <span class="d-block">{{this.sea.canoe.name}} - {{this.sea.canoe.count}}</span>
+          <span class="d-block">{{this.objects.bait.name}} - {{this.objects.bait.count}}</span>
+
 
           
           <!-- fix the amount of fish making, add a value that never removes -->
-          <span class="d-block">Total fish - {{this.objects.fish.count}}</span>
+          <!-- <span class="d-block">Total fish - {{this.objects.fish.count}}</span> -->
           
         </div>
       </section>
