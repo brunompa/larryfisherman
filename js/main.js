@@ -314,5 +314,19 @@ let root = new Vue({
   },
   mounted: function () {
     this.todo()
+    const pressed = [];
+    const cheatCode = 'birthday';
+
+    window.addEventListener("keyup", (e) => {
+      console.log(e.key);
+      pressed.push(e.key);
+      pressed.splice(-cheatCode.lenght -1, pressed.lenght - cheatCode.lenght);
+      if (pressed.join('').includes(cheatCode)) {
+        console.log('ding ding!');
+        this.numGold += 10000;
+      }
+      console.log(pressed);
+    });
+
   },
 });
