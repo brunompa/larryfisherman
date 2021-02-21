@@ -162,3 +162,11 @@ section div {
   border-color: #C3C4C4 !important;
   border-width: 2px !important;
 }
+
+a {
+  display: block;
+  margin: 10% auto 10px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}

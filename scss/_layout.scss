@@ -13,3 +13,9 @@ section div {
   border-color: $border!important;
   border-width: 2px!important;
 }
+
+a {
+  display: block;
+  margin: 10% auto 10px;
+  width: max-content;
+}
