@@ -27,7 +27,7 @@
     <div class="row">
 
 
-      <section class="col-12 col-md pt-2">
+      <section class="col-12 col-lg pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5 class="d-block">Info</h5>
 
@@ -38,7 +38,7 @@
             :disabled="sellingState == !true">Sell
             Fish</button>
 
-          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1 float-right" v-if="this.objects.friend.count > 0 "
+          <button class="btn btn-primary btn-sm mr-1 mb-1 mt-1 float-right" v-if="this.land.friend.count > 0 "
             v-on:click="stanceCheck">At sea: {{stance}}</button>
 
 
@@ -49,6 +49,53 @@
 
           <span class="d-block mb-3">Storage availability: {{objects.fish.count}}/{{availableStorage}}</span>
 
+          <div v-if="this.land.helper.busy > 0 || this.land.helper.free">
+            <div class="row mb-1">
+              <span class="col-md-4 col-lg-12 col-form-label">Fisherman:</span>
+              <a type="button" class="p-0 math-symbol" v-on:click="subFishermanCount"><svg
+                  viewBox="0 0 16 16" title="minus" fill="currentColor">
+                  <rect color="#C1C4C5" x="1.32" y="6.5" width="13.36" height="2.99"></rect>
+                </svg></a>
+              <div class="col-4 col-md-3 col-lg-4 col-xl-3">
+                <input class="form-control col-8 form-select-sm" v-model.number="this.land.fisherman.count" min="0"
+                  :max='this.land.helper.count'>
+              </div>
+              <a type="button" class="p-0 math-symbol" v-on:click="addFishermanCount"><svg
+                  viewBox="0 0 16 16" title="plus" fill="currentColor">
+                  <polygon color="#C1C4C5"
+                    points="14.68 6.6 9.4 6.6 9.4 1.32 6.6 1.32 6.6 6.6 1.32 6.6 1.32 9.4 6.6 9.4 6.6 14.68 9.4 14.68 9.4 9.4 14.68 9.4 14.68 6.6">
+                  </polygon>
+                </svg></a>
+            </div>
+            <div class="row ">
+              <span class="col-md-4 col-lg-12 col-form-label">Employees:</span>
+              <a type="button" class="p-0 math-symbol" v-on:click="subSellerCount"><svg viewBox="0 0 16 16"
+                  title="minus" fill="currentColor">
+                  <rect color="#C1C4C5" x="1.32" y="6.5" width="13.36" height="2.99"></rect>
+                </svg></a>
+              <div class="col-4 col-md-3 col-lg-4 col-xl-3">
+                <input class="form-control col-8 form-select-sm" v-model.number="this.land.seller.count" min="0"
+                  :max='this.land.helper.count'>
+              </div>
+              <a type="button" class="p-0 math-symbol" v-on:click="addSellerCount"><svg viewBox="0 0 16 16" title="plus"
+                  fill="currentColor">
+                  <polygon color="#C1C4C5"
+                    points="14.68 6.6 9.4 6.6 9.4 1.32 6.6 1.32 6.6 6.6 1.32 6.6 1.32 9.4 6.6 9.4 6.6 14.68 9.4 14.68 9.4 9.4 14.68 9.4 14.68 6.6">
+                  </polygon>
+                </svg></a>
+            </div>
+
+          </div>
+
+          <!-- 
+          <div class="wrap">
+            <h1>Counter, increment, decrement</h1>
+            <div class="counter">
+              <input class="counter__input" type="text" value="1" name="counter" size="5" readonly="readonly" />
+              <a class="counter__increment" href="#">+</a>
+              <a class="counter__decrement" href="#">&ndash;</a>
+            </div>
+        </div> -->
 
           <!-- <label class="form-label d-block" for="fishingDepth">Depth for fishing: {{fishingDepth}}</label>
           <div>
@@ -59,7 +106,7 @@
 
       </section>
 
-      <section class="col-12 col-md pt-2">
+      <section class="col-12 col-lg pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Buy</h5>
           <!-- FISHING ROD -->
@@ -73,17 +120,12 @@
             :disabled="numGold < this.objects.bait.cost">{{this.objects.bait.name}} -
             {{this.objects.bait.cost}}</button>
 
-          <!-- WORKER -->
-          <button class="d-block btn btn-info btn-sm mb-2" v-on:click="workerBuy"
-            :disabled="numGold < this.objects.worker.cost">{{this.objects.worker.name}} -
-            {{this.objects.worker.cost}}</button>
-
           <!-- FRIEND -->
           <button id="somethingelse" class="d-inline btn btn-info btn-sm mb-2" v-on:click="friendBuy"
-            v-if="availableSpace > this.objects.friend.count">{{this.objects.friend.name}} -
-            {{this.objects.friend.cost}}</button>
+            v-if="availableSpace > this.land.friend.count">{{this.land.friend.name}} -
+            {{this.land.friend.cost}}</button>
           <!-- <button type="button" class=" btn btn-primary btn-sm mb-2" data-toggle="tooltip" data-placement="right"
-            v-if="availableSpace > this.objects.friend.count && this.tutorial == true"
+            v-if="availableSpace > this.land.friend.count && this.tutorial == true"
             title="A friend fishes for you when at sea 1f/s">
             ?
           </button> -->
@@ -91,23 +133,24 @@
           <!-- SELL PERMIT -->
           <div class="d-block">
             <button class="d-inline btn btn-info btn-sm mb-2" v-if="this.land.permit.count < 1"
-              :disabled="numGold < this.land.permit.cost" v-on:click="buyOrderValue('land', 'permit')">{{this.land.permit.name}} -
+              :disabled="numGold < this.land.permit.cost"
+              v-on:click="buyOrderValue('land', 'permit')">{{this.land.permit.name}} -
               {{this.land.permit.cost}}</button>
             <!-- <button type="button" class=" btn btn-primary btn-sm mb-2" data-toggle="tooltip" data-placement="right"
               v-if="this.land.permit.count < 1 && this.tutorial == true"
-              title="Buying a permit allows you to hire sellers">
+              title="Buying a permit allows you to hire employees">
               ?
             </button> -->
           </div>
 
-          <!-- SELLER -->
-          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.seller.cost"
-            v-on:click="buySeller" v-if="this.land.permit.count > 0">{{this.land.seller.name}} -
-            {{this.land.seller.cost}}</button>
+          <!-- employee -->
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.employee.cost"
+            v-on:click="buyEmployee" v-if="this.land.permit.count > 0">{{this.land.employee.name}} -
+            {{this.land.employee.cost}}</button>
 
           <!-- STAND -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.stand.cost"
-          v-on:click="buyOrderValue('land', 'stand')"
+            v-on:click="buyOrderValue('land', 'stand')"
             v-if="this.land.permit.count > 0 && this.land.stand.count < 1">{{this.land.stand.name}} -
             {{this.land.stand.cost}}</button>
 
@@ -150,7 +193,7 @@
         </div>
       </section>
 
-      <section class="col-12 col-md pt-2" v-if="this.sea.canoe.count > 0 || this.land.permit.count > 0">
+      <section class="col-12 col-lg pt-2" v-if="this.sea.canoe.count > 0 || this.land.permit.count > 0">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Upgrades</h5>
 
@@ -169,7 +212,7 @@
 
           <!-- LOCATION -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.docklocation.cost"
-          v-on:click="buyOrderValue('land', 'docklocation')"
+            v-on:click="buyOrderValue('land', 'docklocation')"
             v-if="this.land.permit.count > 0 && this.land.docklocation.count < 1">{{this.land.docklocation.name}}
             -
             {{this.land.docklocation.cost}}</button>
@@ -185,25 +228,23 @@
 
           <!-- LOCATION -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.storelocation.cost"
-          v-on:click="buyOrderValue('land', 'storelocation')"
+            v-on:click="buyOrderValue('land', 'storelocation')"
             v-if="this.land.store.count > 0 && this.land.storelocation.count < 1">{{this.land.storelocation.name}}
             -
             {{this.land.storelocation.cost}}</button>
-
-
-
         </div>
       </section>
 
-      <section class="col-12 col-md pt-2">
+      <section class="col-12 col-lg pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Journal</h5>
-          <span class="d-block">{{this.objects.friend.name}} - {{this.objects.friend.count}}</span>
-          <span class="d-block">{{this.objects.worker.name}} - {{this.objects.worker.count}}</span>
-          <span class="d-block">{{this.land.seller.name}} - {{this.land.seller.count}}</span>
+          <span class="d-block">{{this.land.friend.name}} - {{this.land.friend.count}}</span>
+          <span class="d-block">{{this.land.employee.name}} - {{this.land.employee.count}}</span>
           <span class="d-block">{{this.sea.canoe.name}} - {{this.sea.canoe.count}}</span>
           <span class="d-block">{{this.objects.bait.name}} - {{this.objects.bait.count}}</span>
+          <span class="d-block">helper - {{this.land.helper.count}}</span>
 
+          <!-- <span class="d-block">{{this.objects.worker.name}} - {{this.objects.worker.count}}</span> -->
           <!-- fix the amount of fish making, add a value that never removes -->
           <!-- <span class="d-block">Total fish - {{this.objects.fish.count}}</span> -->
 
@@ -211,10 +252,9 @@
       </section>
     </div>
 
-
-  <a href="https://github.com/brunompa/larryfisherman" target="_blank"><img src="doc/github_logo.png" alt="github logo"></a>
-</main>
-
+    <a href="https://github.com/brunompa/larryfisherman" target="_blank"><img src="doc/github_logo.png"
+        alt="github logo"></a>
+  </main>
 
   <!-- boostrap 5 cdn -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"

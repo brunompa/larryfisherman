@@ -57,17 +57,36 @@ let root = new Vue({
         name: "Sell Permit",
         count: 0,
         cost: 25,
-        value: .25
+        value: .25,
+      },
+      employee: {
+        name: "Employee",
+        count: 0,
+        cost: 15,
+      },
+      friend: {
+        name: "Friend",
+        count: 0,
+        cost: 0,
+        fish: 1,
+      },
+      helper: {
+        busy: 0,
+        free: 0,
+      },
+      fisherman: {
+        name: "Fisherman",
+        count: 0,
+        fish: 1,
       },
       seller: {
         name: "Seller",
         count: 0,
-        cost: 15
       },
       dock: {
         name: "Dock",
         count: 0,
-        storage: 550
+        storage: 550,
       },
       docklocation: {
         name: "Better Location",
@@ -108,18 +127,6 @@ let root = new Vue({
         cost: .25,
         total: 0
       },
-      friend: {
-        name: "Friend",
-        count: 0,
-        cost: 0,
-        fish: 1
-      },
-      worker: {
-        name: "Employee",
-        count: 0,
-        cost: 25,
-        fish: 1
-      },
       fishingrod: {
         name: "Fishing Rod",
         count: 0,
@@ -135,6 +142,7 @@ let root = new Vue({
       },
     },
   },
+
   methods: {
     fishCheck: function () {
       if (this.objects.fish.count < this.availableStorage) {
@@ -157,6 +165,48 @@ let root = new Vue({
         this.fishingState = false;
       }
     },
+
+
+
+    addSellerCount: function () {
+      if (this.land.helper.free > 0) {
+        this.land.helper.busy ++;
+        this.land.helper.free --;
+
+        this.land.seller.count ++;
+      }
+    },
+
+    subSellerCount: function () {
+      if (this.land.seller.count > 0) {
+        this.land.helper.busy --;
+        this.land.helper.free ++;
+
+        this.land.seller.count --;
+      }
+    },
+
+
+
+    addFishermanCount: function () {
+      if (this.land.helper.free > 0) {
+        this.land.helper.busy ++;
+        this.land.helper.free --;
+
+        this.land.fisherman.count ++;
+      }
+    },
+
+    subFishermanCount: function () {
+      if (this.land.fisherman.count > 0) {
+        this.land.helper.busy --;
+        this.land.helper.free ++;
+
+        this.land.fisherman.count --;
+      }
+    },
+
+
 
     sellCheck: function () {
       if (this.objects.fish.count > 0 && this.stance == false) {
@@ -185,18 +235,15 @@ let root = new Vue({
       }
     },
 
-    buySeller: function () {
-      this.itemBuy("land", "seller");
-      this.land.seller.cost = Math.ceil(15 * Math.pow(1.3, this.land.seller.count));
-    },
-
-    workerBuy: function() {
-        this.itemBuy("objects", "worker");
-        this.objects.worker.cost = Math.ceil(15 * Math.pow(1.5, this.objects.worker.count));
+    buyEmployee: function () {
+      this.itemBuy("land", "employee");
+      this.land.employee.cost = Math.ceil(15 * Math.pow(1.3, this.land.employee.count));
+      this.land.helper.free ++;
     },
 
     friendBuy: function () {
-      this.objects.friend.count += 1;
+      this.land.friend.count += 1;
+      this.land.helper.free ++;
     },
 
     baitBuy: function () {
@@ -235,12 +282,12 @@ let root = new Vue({
     todo: function () {
       setInterval(() => {
         // fish and gold each second
-        this.numFishSec = this.objects.friend.count * this.objects.friend.fish + this.objects.worker.count * this.objects.worker.fish;
+        this.numFishSec = this.land.fisherman.count * this.land.fisherman.fish;
         this.numGoldSec = this.land.seller.count * this.objects.fish.cost;
 
         // fish if theres available storage
         if (this.objects.fish.count < this.availableStorage && this.stance == true) {
-          this.objects.fish.count += Math.round(this.objects.friend.count * this.objects.friend.fish + this.objects.worker.count * this.objects.worker.fish);
+          this.objects.fish.count += Math.round(this.land.fisherman.count * this.land.fisherman.fish);
           if (this.objects.fish.count < this.availableStorage) {
             this.fishingState = true;
           } else {
@@ -279,8 +326,8 @@ let root = new Vue({
       pressed.splice(-cheatCode.lenght -1, pressed.lenght - cheatCode.lenght);
       if (pressed.join('').includes(cheatCode)) {
         this.numGold += 10000;
+        pressed.length = 0;
       }
     });
-
   },
 });
