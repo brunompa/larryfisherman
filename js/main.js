@@ -98,7 +98,7 @@ let root = new Vue({
         name: "More Storage",
         count: 0,
         cost: 200,
-        storage: 1000,
+        storage: 750,
       },
       stand: {
         name: "Selling Stand",
@@ -111,6 +111,7 @@ let root = new Vue({
         count: 0,
         cost: 750,
         value: .25,
+        storage: 1200,
       },
       storelocation: {
         name: "Better Location",
@@ -125,7 +126,7 @@ let root = new Vue({
         name: "Fish",
         count: 0,
         cost: .25,
-        total: 0
+        total: 0,
       },
       fishingrod: {
         name: "Fishing Rod",
@@ -147,13 +148,18 @@ let root = new Vue({
     fishCheck: function () {
       if (this.objects.fish.count < this.availableStorage) {
         this.objects.fish.count++
+        this.objects.fish.total++
 
         if (this.objects.fishingrod.count > 0 && this.objects.bait.count > 0) {
           this.objects.bait.count--;
           this.objects.fish.count++;
+          this.objects.fish.total++
+
         }
         if (this.objects.fishingrod.count > 0 && this.availableStorage > this.objects.fish.count) {
           this.objects.fish.count++
+          this.objects.fish.total++
+
         }
         if (this.objects.fish.count >= this.availableStorage) {
           this.fishingState = false;
@@ -165,8 +171,6 @@ let root = new Vue({
         this.fishingState = false;
       }
     },
-
-
 
     addSellerCount: function () {
       if (this.land.helper.free > 0) {
@@ -186,8 +190,6 @@ let root = new Vue({
       }
     },
 
-
-
     addFishermanCount: function () {
       if (this.land.helper.free > 0) {
         this.land.helper.busy ++;
@@ -205,8 +207,6 @@ let root = new Vue({
         this.land.fisherman.count --;
       }
     },
-
-
 
     sellCheck: function () {
       if (this.objects.fish.count > 0 && this.stance == false) {
@@ -236,40 +236,41 @@ let root = new Vue({
     },
 
     buyEmployee: function () {
-      this.itemBuy("land", "employee");
+      this.buyItem("land", "employee");
       this.land.employee.cost = Math.ceil(15 * Math.pow(1.3, this.land.employee.count));
       this.land.helper.free ++;
     },
 
-    friendBuy: function () {
+    buyFriend: function () {
       this.land.friend.count += 1;
       this.land.helper.free ++;
     },
 
-    baitBuy: function () {
+    buyBait: function () {
       this.objects.bait.count += 10;
       this.numGold -= this.objects.bait.cost;
     },
 
-    dockStorageBuy: function () {
-      this.itemBuy("land", "dockstorage");
+    buyDockStorage: function () {
+      this.buyItem("land", "dockstorage");
       this.availableStorage += this.land.dockstorage.storage;
     },
 
+
     // whenever you buy something that increases the value of fish
     buyOrderValue: function (place, ovni) {
-      this.itemBuy(place, ovni);
+      this.buyItem(place, ovni);
       this.objects.fish.cost += this[place][ovni].value;
     },
 
     // whenever you buy a item that increases space (friends capacity)
     buyOrderSpace: function (place, ovni) {
-      this.itemBuy(place, ovni);
+      this.buyItem(place, ovni);
       this.availableSpace += this[place][ovni].space;
     },
 
     // whenever you buy something
-    itemBuy: function (param1, object) {
+    buyItem: function (param1, object) {
       this[param1][object].count += 1;
       this.numGold -= this[param1][object].cost;
     },
@@ -288,6 +289,7 @@ let root = new Vue({
         // fish if theres available storage
         if (this.objects.fish.count < this.availableStorage && this.stance == true) {
           this.objects.fish.count += Math.round(this.land.fisherman.count * this.land.fisherman.fish);
+          this.objects.fish.total += Math.round(this.land.fisherman.count * this.land.fisherman.fish);
           if (this.objects.fish.count < this.availableStorage) {
             this.fishingState = true;
           } else {

@@ -116,12 +116,12 @@
             {{this.objects.fishingrod.cost}}</button>
 
           <!-- BAIT -->
-          <button class="d-block btn btn-info btn-sm mb-2" v-on:click="baitBuy" v-if="this.objects.fishingrod.count > 0"
+          <button class="d-block btn btn-info btn-sm mb-2" v-on:click="buyBait" v-if="this.objects.fishingrod.count > 0"
             :disabled="numGold < this.objects.bait.cost">{{this.objects.bait.name}} -
             {{this.objects.bait.cost}}</button>
 
           <!-- FRIEND -->
-          <button id="somethingelse" class="d-inline btn btn-info btn-sm mb-2" v-on:click="friendBuy"
+          <button id="somethingelse" class="d-inline btn btn-info btn-sm mb-2" v-on:click="buyFriend"
             v-if="availableSpace > this.land.friend.count">{{this.land.friend.name}} -
             {{this.land.friend.cost}}</button>
           <!-- <button type="button" class=" btn btn-primary btn-sm mb-2" data-toggle="tooltip" data-placement="right"
@@ -219,7 +219,7 @@
 
           <!-- STORAGE -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.dockstorage.cost"
-            v-on:click="dockStorageBuy"
+            v-on:click="buyDockStorage"
             v-if="this.land.permit.count > 0 && this.land.dockstorage.count < 1">{{this.land.dockstorage.name}} -
             {{this.land.dockstorage.cost}}</button>
 
@@ -238,15 +238,24 @@
       <section class="col-12 col-lg pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Journal</h5>
-          <span class="d-block">{{this.land.friend.name}} - {{this.land.friend.count}}</span>
-          <span class="d-block">{{this.land.employee.name}} - {{this.land.employee.count}}</span>
-          <span class="d-block">{{this.sea.canoe.name}} - {{this.sea.canoe.count}}</span>
+          <span class="d-block">Total fish - {{this.objects.fish.total}}</span>
           <span class="d-block">{{this.objects.bait.name}} - {{this.objects.bait.count}}</span>
-          <span class="d-block">helper - {{this.land.helper.count}}</span>
+
+
+          <span class="d-block" v-if="this.land.permit.count > 0">{{this.land.friend.name}} - {{this.land.friend.count}}</span>
+          <span class="d-block" v-if="this.land.permit.count > 0">{{this.land.employee.name}} - {{this.land.employee.count}}</span>
+
+          <span class="d-block" v-if="this.land.stand.count > 0">{{this.land.store.name}} - {{this.land.store.count}}</span>
+
+
+          <span class="d-block">{{this.sea.canoe.name}} - {{this.sea.canoe.count}}</span>
+          <span class="d-block" v-if="this.sea.canoe.count > 0">{{this.sea.deckboat.name}} - {{this.sea.deckboat.count}}</span>
+          <span class="d-block" v-if="this.sea.deckboat.count > 0">{{this.sea.sailboat.name}} - {{this.sea.sailboat.count}}</span>
+          <span class="d-block" v-if="this.sea.sailboat.count > 0">{{this.sea.trawler.name}} - {{this.sea.trawler.count}}</span>
+
 
           <!-- <span class="d-block">{{this.objects.worker.name}} - {{this.objects.worker.count}}</span> -->
           <!-- fix the amount of fish making, add a value that never removes -->
-          <!-- <span class="d-block">Total fish - {{this.objects.fish.count}}</span> -->
 
         </div>
       </section>
