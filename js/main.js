@@ -119,6 +119,13 @@ let root = new Vue({
         cost: 1500,
         value: .5,
       },
+      sushirestaurant: {
+        name: "Sushi Restaurant",
+        count: 0,
+        cost: 2000,
+        value: .25,
+        storage: 500,
+      },
     },
 
     objects: {
@@ -233,6 +240,18 @@ let root = new Vue({
         this.stance = true;
         this.sellingState = false;
       }
+    },
+
+    buyStore: function () {
+      this.buyItem("land", "store");
+      this.availableStorage += this.land.store.storage;
+      this.objects.fish.cost += this.land.store.value;
+    },
+
+    buySushiRestaurant: function () {
+      this.buyItem("land", "sushirestaurant");
+      this.availableStorage += this.land.sushirestaurant.storage;
+      this.objects.fish.cost += this.land.sushirestaurant.value;
     },
 
     buyEmployee: function () {
