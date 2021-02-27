@@ -53,12 +53,6 @@ let root = new Vue({
     },
 
     land: {
-      permit: {
-        name: "Sell Permit",
-        count: 0,
-        cost: 25,
-        value: .25,
-      },
       employee: {
         name: "Employee",
         count: 0,
@@ -147,6 +141,12 @@ let root = new Vue({
         count: 0,
         cost: 1,
         fish: 1
+      },
+      permit: {
+        name: "Sell Permit",
+        count: 0,
+        cost: 25,
+        value: .25,
       },
     },
   },

@@ -1,6 +1,8 @@
 # larryfisherman
 
-larryfisherman is a incremental open source game that is suppose to be played on the browser, the theme of the game is fishing but if some mechanics or actions dont make sense dont take it too seriously.
+larryfisherman is a incremental open source game that is suppose to be played on the browser, the theme of the game is fishing but if some mechanics or actions dont make sense dont take it too seriously. 
+
+If you don't understand a mechanism or are curious about something you can check the [wiki](https://github.com/brunompa/larryfisherman/wiki).
 
 <img alt="Screenshot of the game at the current state" src="doc/screenshot.png">
 
