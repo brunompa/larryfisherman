@@ -30,3 +30,7 @@ svg {
   width: 20px;
   display: block;
 }
+
+button {
+  touch-action: manipulation;
+}

@@ -183,3 +183,8 @@ svg {
   width: 20px;
   display: block;
 }
+
+button {
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+}
