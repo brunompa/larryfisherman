@@ -125,7 +125,8 @@ let root = new Vue({
     objects: {
       fish: {
         name: "Fish",
-        count: 0,
+        count: 0.0,
+        value: 0,
         cost: .25,
         total: 0,
       },
@@ -153,18 +154,18 @@ let root = new Vue({
 
   methods: {
     fishCheck: function () {
-      if (this.objects.fish.count < this.availableStorage) {
-        this.objects.fish.count++
+      if (this.objects.fish.value < this.availableStorage) {
+        this.updateFishCount(this.objects.fish.count + 1)
         this.objects.fish.total++
 
         if (this.objects.fishingrod.count > 0 && this.objects.bait.count > 0) {
           this.objects.bait.count--;
-          this.objects.fish.count++;
+          this.updateFishCount(this.objects.fish.count + 1)
           this.objects.fish.total++
 
         }
         if (this.objects.fishingrod.count > 0 && this.availableStorage > this.objects.fish.count) {
-          this.objects.fish.count++
+          this.updateFishCount(this.objects.fish.count + 1)
           this.objects.fish.total++
 
         }
@@ -185,6 +186,7 @@ let root = new Vue({
         this.land.helper.free--;
 
         this.land.seller.count++;
+        this.numGoldSec = this.land.seller.count * this.objects.fish.cost;
       }
     },
 
@@ -194,6 +196,7 @@ let root = new Vue({
         this.land.helper.free++;
 
         this.land.seller.count--;
+        this.numGoldSec = this.land.seller.count * this.objects.fish.cost;
       }
     },
 
@@ -203,6 +206,7 @@ let root = new Vue({
         this.land.helper.free--;
 
         this.land.fisherman.count++;
+        this.numFishSec = this.land.fisherman.count * this.land.fisherman.fish
       }
     },
 
@@ -212,17 +216,31 @@ let root = new Vue({
         this.land.helper.free++;
 
         this.land.fisherman.count--;
+        this.numFishSec = this.land.fisherman.count * this.land.fisherman.fish
       }
     },
 
+    // not possible otimization with only 1 function
+    // updateHelper: function (fuckBoy, fuckBuyOverNine, valueOne, valueTwo, secValue, fuckBoyState) {
+    //   console.log(fuckBoy, fuckBuyOverNine, valueOne, valueTwo, secValue, fuckBoyState)
+    //   if (this.land[fuckBuyOverNine][fuckBoyState] > 0) {
+    //     this.land.helper.busy += [valueOne];
+    //     this.land.helper.free += [valueTwo];
+    //     console.log(fuckBoy, fuckBuyOverNine, valueOne, valueTwo, secValue, fuckBoyState)
+
+    //     this.land[fuckBoy].count += [valueOne];
+    //     this[secValue] = this.land[fuckBoy].count * this.land[fuckBoy].fish;
+    //   }
+    // },
+
     sellCheck: function () {
-      if (this.objects.fish.count > 0 && this.stance == false) {
-        this.objects.fish.count--
+      if (this.objects.fish.value > 0 && this.stance == false) {
+        this.updateFishCount(this.objects.fish.count - 1)
         this.numGold += this.objects.fish.cost
-        if (this.objects.fish.count < this.availableStorage) {
+        if (this.objects.fish.value < this.availableStorage) {
           this.fishingState = true;
         }
-        if (this.objects.fish.count <= 0) {
+        if (this.objects.fish.value <= 0) {
           this.sellingState = false;
         }
       } else {
@@ -230,10 +248,15 @@ let root = new Vue({
       }
     },
 
+    updateFishCount: function (double) {
+      this.objects.fish.count = double
+      this.objects.fish.value = Math.trunc(double)
+    },
+
     stanceCheck: function () {
       if (this.stance == true) {
         this.stance = false;
-        if (this.objects.fish.count > 0) {
+        if (this.objects.fish.value > 0) {
           this.sellingState = true;
         }
       } else {
@@ -302,41 +325,27 @@ let root = new Vue({
 
     todo: function () {
       setInterval(() => {
-        // fish and gold each second
-        this.numFishSec = this.land.fisherman.count * this.land.fisherman.fish;
-        this.numGoldSec = this.land.seller.count * this.objects.fish.cost;
 
-        // fish if theres available storage
-        if (this.objects.fish.count < this.availableStorage && this.stance == true) {
-          this.objects.fish.count += (this.land.fisherman.count * this.land.fisherman.fish / 10);
-          this.objects.fish.total += (this.land.fisherman.count * this.land.fisherman.fish / 10);
-          if (this.objects.fish.count < this.availableStorage) {
-            this.fishingState = true;
-          } else {
-            this.fishingState = false;
-          }
+        let fishermen = this.land.fisherman.count
+        let sellers = this.land.seller.count
+
+        if (fishermen !== 0) {
+          let numeroDePeixes = this.land.fisherman.count / 10
+          this.updateFishCount(this.objects.fish.count + numeroDePeixes)
+          this.objects.fish.total += numeroDePeixes
         }
 
-        // exchange fish for gold
-        for (let i = 0; i < this.land.seller.count; i++) {
-          if (this.objects.fish.count < 1) {
-            break
-          } else {
-            this.objects.fish.count--;
-            this.numGold += this.objects.fish.cost;
-
-            if (this.objects.fish.count < this.availableStorage) {
-              this.fishingState = true;
-            } else {
-              this.fishingState = false;
-            }
-          }
+        if (sellers !== 0 && this.objects.fish.value > 0) {
+          let numeroDePeixes = this.land.seller.count
+          this.updateFishCount(this.objects.fish.count - numeroDePeixes)
+          this.numGold += this.land.seller.count * this.objects.fish.cost
         }
 
         // console.log("tick");
       }, 100);
     },
   },
+
   mounted: function () {
     this.todo()
 
@@ -351,5 +360,6 @@ let root = new Vue({
         pressed.length = 0;
       }
     });
-  },
+  }
+
 });
