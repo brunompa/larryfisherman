@@ -294,6 +294,7 @@ let root = new Vue({
       this.numGold -= this[param1][object].cost;
     },
 
+    // change depth that you fish in
     changeFishingDepth: function () {
       this.fishingDepth = document.getElementById("fishingDepth").value;
       console.log(document.getElementById("fishingDepth").value);
@@ -307,8 +308,8 @@ let root = new Vue({
 
         // fish if theres available storage
         if (this.objects.fish.count < this.availableStorage && this.stance == true) {
-          this.objects.fish.count += Math.round(this.land.fisherman.count * this.land.fisherman.fish);
-          this.objects.fish.total += Math.round(this.land.fisherman.count * this.land.fisherman.fish);
+          this.objects.fish.count += (this.land.fisherman.count * this.land.fisherman.fish / 10);
+          this.objects.fish.total += (this.land.fisherman.count * this.land.fisherman.fish / 10);
           if (this.objects.fish.count < this.availableStorage) {
             this.fishingState = true;
           } else {
@@ -333,7 +334,7 @@ let root = new Vue({
         }
 
         // console.log("tick");
-      }, 1000);
+      }, 100);
     },
   },
   mounted: function () {
