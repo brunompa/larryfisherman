@@ -175,7 +175,11 @@ a {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  margin-top: 7px;
+}
+
+.math-symbol-img {
+  height: 25px;
+  width: 25px;
 }
 
 svg {

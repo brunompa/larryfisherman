@@ -181,37 +181,37 @@ let root = new Vue({
 
     addSellerCount: function () {
       if (this.land.helper.free > 0) {
-        this.land.helper.busy ++;
-        this.land.helper.free --;
+        this.land.helper.busy++;
+        this.land.helper.free--;
 
-        this.land.seller.count ++;
+        this.land.seller.count++;
       }
     },
 
     subSellerCount: function () {
       if (this.land.seller.count > 0) {
-        this.land.helper.busy --;
-        this.land.helper.free ++;
+        this.land.helper.busy--;
+        this.land.helper.free++;
 
-        this.land.seller.count --;
+        this.land.seller.count--;
       }
     },
 
     addFishermanCount: function () {
       if (this.land.helper.free > 0) {
-        this.land.helper.busy ++;
-        this.land.helper.free --;
+        this.land.helper.busy++;
+        this.land.helper.free--;
 
-        this.land.fisherman.count ++;
+        this.land.fisherman.count++;
       }
     },
 
     subFishermanCount: function () {
       if (this.land.fisherman.count > 0) {
-        this.land.helper.busy --;
-        this.land.helper.free ++;
+        this.land.helper.busy--;
+        this.land.helper.free++;
 
-        this.land.fisherman.count --;
+        this.land.fisherman.count--;
       }
     },
 
@@ -257,12 +257,12 @@ let root = new Vue({
     buyEmployee: function () {
       this.buyItem("land", "employee");
       this.land.employee.cost = Math.ceil(15 * Math.pow(1.3, this.land.employee.count));
-      this.land.helper.free ++;
+      this.land.helper.free++;
     },
 
     buyFriend: function () {
       this.land.friend.count += 1;
-      this.land.helper.free ++;
+      this.land.helper.free++;
     },
 
     buyBait: function () {
@@ -345,7 +345,7 @@ let root = new Vue({
     const cheatCode = 'birthday';
     window.addEventListener("keyup", (e) => {
       pressed.push(e.key);
-      pressed.splice(-cheatCode.lenght -1, pressed.lenght - cheatCode.lenght);
+      pressed.splice(-cheatCode.lenght - 1, pressed.lenght - cheatCode.lenght);
       if (pressed.join('').includes(cheatCode)) {
         this.numGold += 10000;
         pressed.length = 0;

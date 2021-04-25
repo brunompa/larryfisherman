@@ -22,7 +22,12 @@ a {
 
 .math-symbol {
   width: max-content;
-  margin-top: 7px;
+  // margin-top: 7px;
+
+}
+.math-symbol-img {
+  height: 25px;
+  width: 25px;
 }
 
 svg {
