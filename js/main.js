@@ -180,58 +180,47 @@ let root = new Vue({
       }
     },
 
+    updateHelper: function (helper, value) {
+      this.land.helper.busy += value;
+      this.land.helper.free -= value;
+      this.land[helper].count += value;
+    },
+
     addSellerCount: function () {
       if (this.land.helper.free > 0) {
-        this.land.helper.busy++;
-        this.land.helper.free--;
-
-        this.land.seller.count++;
-        this.numGoldSec = this.land.seller.count * this.objects.fish.cost;
+        this.updateHelper("seller", 1);
+        this.updateGoldPerSec();
       }
     },
 
     subSellerCount: function () {
       if (this.land.seller.count > 0) {
-        this.land.helper.busy--;
-        this.land.helper.free++;
-
-        this.land.seller.count--;
-        this.numGoldSec = this.land.seller.count * this.objects.fish.cost;
+        this.updateHelper("seller", -1);
+        this.updateGoldPerSec();
       }
     },
 
     addFishermanCount: function () {
       if (this.land.helper.free > 0) {
-        this.land.helper.busy++;
-        this.land.helper.free--;
-
-        this.land.fisherman.count++;
-        this.numFishSec = this.land.fisherman.count * this.land.fisherman.fish
+        this.updateHelper("fisherman", 1);
+        this.updateFishPerSec();
       }
     },
 
     subFishermanCount: function () {
       if (this.land.fisherman.count > 0) {
-        this.land.helper.busy--;
-        this.land.helper.free++;
-
-        this.land.fisherman.count--;
-        this.numFishSec = this.land.fisherman.count * this.land.fisherman.fish
+        this.updateHelper("fisherman", -1);
+        this.updateFishPerSec();
       }
     },
 
-    // not possible otimization with only 1 function
-    // updateHelper: function (fuckBoy, fuckBuyOverNine, valueOne, valueTwo, secValue, fuckBoyState) {
-    //   console.log(fuckBoy, fuckBuyOverNine, valueOne, valueTwo, secValue, fuckBoyState)
-    //   if (this.land[fuckBuyOverNine][fuckBoyState] > 0) {
-    //     this.land.helper.busy += [valueOne];
-    //     this.land.helper.free += [valueTwo];
-    //     console.log(fuckBoy, fuckBuyOverNine, valueOne, valueTwo, secValue, fuckBoyState)
+    updateFishPerSec: function () {
+      this.numFishSec = this.land.fisherman.count * this.land.fisherman.fish;
+    },
 
-    //     this.land[fuckBoy].count += [valueOne];
-    //     this[secValue] = this.land[fuckBoy].count * this.land[fuckBoy].fish;
-    //   }
-    // },
+    updateGoldPerSec: function () {
+      this.numGoldSec = this.land.seller.count * this.objects.fish.cost;
+    },
 
     sellCheck: function () {
       if (this.objects.fish.value > 0 && this.stance == false) {
