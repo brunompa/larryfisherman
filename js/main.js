@@ -318,7 +318,7 @@ let root = new Vue({
         let fishermen = this.land.fisherman.count
         let sellers = this.land.seller.count
 
-        if (fishermen !== 0) {
+        if (fishermen !== 0 && this.stance !== false) {
           let numeroDePeixes = this.land.fisherman.count / 10
           this.updateFishCount(this.objects.fish.count + numeroDePeixes)
           this.objects.fish.total += numeroDePeixes
