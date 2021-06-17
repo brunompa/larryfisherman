@@ -192,3 +192,12 @@ button {
   -ms-touch-action: manipulation;
       touch-action: manipulation;
 }
+
+#horse-icon {
+  width: 32px;
+  height: auto;
+  position: static;
+  cursor: pointer;
+  float: right;
+  margin: 10% auto 10px;
+}

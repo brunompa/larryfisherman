@@ -1,7 +1,7 @@
 body {
   background-color: $parent-bg;
   color: $color;
-  user-select: none; 
+  user-select: none;
 }
 
 section div {
@@ -10,8 +10,8 @@ section div {
 }
 
 .border {
-  border-color: $border!important;
-  border-width: 2px!important;
+  border-color: $border !important;
+  border-width: 2px !important;
 }
 
 a {
@@ -23,7 +23,6 @@ a {
 .math-symbol {
   width: max-content;
   // margin-top: 7px;
-
 }
 .math-symbol-img {
   height: 25px;
@@ -39,3 +38,37 @@ svg {
 button {
   touch-action: manipulation;
 }
+
+#horse-icon {
+  width: 32px;
+  height: auto;
+  position: static;
+  cursor: pointer;
+  float: right;
+  margin: 10% auto 10px;
+}
+
+//  make the alert showing who won slider from the left (need to make it slide from the top)
+// .alert {
+//   position: absolute;
+//   left: -100px;
+//   width: 100px;
+//   height: 100px;
+//   background: blue;
+//   -webkit-animation: slide 0.5s forwards;
+//   -webkit-animation-delay: 2s;
+//   animation: slide 0.5s forwards;
+//   animation-delay: 2s;
+// }
+
+// @-webkit-keyframes slide {
+//   100% {
+//     left: 0;
+//   }
+// }
+
+// @keyframes slide {
+//   100% {
+//     left: 0;
+//   }
+// }

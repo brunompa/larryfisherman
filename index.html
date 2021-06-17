@@ -28,11 +28,9 @@
 
 <body>
   <main id="root" class="container">
-
     <div class="row">
 
-
-      <section class="col-12 col-lg pt-2">
+      <section class="col-12 col-lg-4 pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5 class="d-block">Info</h5>
 
@@ -112,7 +110,7 @@
 
       </section>
 
-      <section class="col-12 col-lg pt-2">
+      <section class="col-12 col-lg-4 pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Buy</h5>
           <!-- FISHING ROD -->
@@ -205,7 +203,7 @@
         </div>
       </section>
 
-      <section class="col-12 col-lg pt-2" v-if="this.sea.canoe.count > 0 || this.objects.permit.count > 0">
+      <section class="col-12 col-lg-4  pt-2" v-if="this.sea.canoe.count > 0 || this.objects.permit.count > 0">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Upgrades</h5>
 
@@ -232,7 +230,7 @@
           <!-- STORAGE -->
           <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.dockstorage.cost"
             v-on:click="buyDockStorage"
-            v-if="this.objects.count > 0 && this.land.dockstorage.count < 1">{{this.land.dockstorage.name}} -
+            v-if="this.objects.permit.count > 0 && this.land.dockstorage.count < 1">{{this.land.dockstorage.name}} -
             {{this.land.dockstorage.cost}}</button>
 
           <!-- STORE -->
@@ -247,7 +245,7 @@
         </div>
       </section>
 
-      <section class="col-12 col-lg pt-2">
+      <section class="col-12 col-lg-4 pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Journal</h5>
           <span class="d-block">Total fish - {{Math.trunc(this.objects.fish.total)}}</span>
@@ -256,15 +254,15 @@
           <span class="d-block" v-if="this.objects.permit.count > 0">{{this.land.stand.name}} -
             {{this.land.stand.count}}</span>
 
-          <span class="d-block" v-if="this.objects.permit.count > 0">{{this.land.friend.name}} -
+          <span class="d-block"
+            v-if="this.objects.permit.count > 0 || this.objects.fishingrod.count > 0">{{this.land.friend.name}} -
             {{this.land.friend.count}}</span>
+
           <span class="d-block" v-if="this.objects.permit.count > 0">{{this.land.employee.name}} -
             {{this.land.employee.count}}</span>
 
-
           <span class="d-block" v-if="this.land.stand.count > 0">{{this.land.store.name}} -
             {{this.land.store.count}}</span>
-
 
           <span class="d-block">{{this.sea.canoe.name}} - {{this.sea.canoe.count}}</span>
           <span class="d-block" v-if="this.sea.canoe.count > 0">{{this.sea.deckboat.name}} -
@@ -280,7 +278,45 @@
 
         </div>
       </section>
+
+
+
+      <!-- gambling section -->
+      <section class="col-12 col-lg-4 pt-2 d-none" id="betting-section">
+
+
+        <div class="border rounded position-relative p-3 h-100">
+          <h5>Horse race betting</h5>
+          <form onsubmit="return false">
+
+            <span>Bet amount:</span>
+            <input type="number" class="form-control" id="betting-gold-amount" required />
+
+            <div class="d-block">
+              <span>Horse winner number:</span>
+              <input type="number" class="form-control col-2" id="horse-bet-winning" min="1" max="5" required />
+            </div>
+            <div class="alert alert-danger mt-2 mt-2 d-none" id="alert-error">
+              Error: <span id="betting-error"></span>.
+            </div>
+            <button class="btn btn-sm btn-success mt-3 mb-3 form-control" v-on:click="suckMyDick()"
+              :disabled="numGold < .01">race</button>
+
+          </form>
+
+          <div class="alert alert-danger d-none" id="alert-l">
+            Lost! The winner was {{this.bettingResult}}.
+          </div>
+          <div class="alert alert-success d-none" id="alert-w">
+            Won! The winner was {{this.bettingResult}}.
+          </div>
+        </div>
+
+      </section>
     </div>
+
+    <img src="doc/horse_icon.png" alt="icon to bet on horse races" id="horse-icon" title="horse race betting"
+      v-on:click="showGamblingSection()">
 
     <a href="https://github.com/brunompa/larryfisherman" target="_blank"><img src="doc/github_logo.png"
         alt="github logo"></a>
