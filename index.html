@@ -249,7 +249,7 @@
         <div class="border rounded position-relative p-3 h-100">
           <h5>Journal</h5>
           <span class="d-block">Total fish - {{Math.trunc(this.objects.fish.total)}}</span>
-          <span class="d-block">{{this.objects.bait.name}} - {{this.objects.bait.count}}</span>
+          <span class="d-block">{{this.objects.bait.name}} - {{Math.trunc(this.objects.bait.count)}}</span>
 
           <span class="d-block" v-if="this.objects.permit.count > 0">{{this.land.stand.name}} -
             {{this.land.stand.count}}</span>
@@ -272,7 +272,6 @@
           <span class="d-block" v-if="this.sea.sailboat.count > 0">{{this.sea.trawler.name}} -
             {{this.sea.trawler.count}}</span>
 
-
           <!-- <span class="d-block">{{this.objects.worker.name}} - {{this.objects.worker.count}}</span> -->
           <!-- fix the amount of fish making, add a value that never removes -->
 
@@ -283,8 +282,6 @@
 
       <!-- gambling section -->
       <section class="col-12 col-lg-4 pt-2 d-none" id="betting-section">
-
-
         <div class="border rounded position-relative p-3 h-100">
           <h5>Horse race betting</h5>
           <form onsubmit="return false">
@@ -299,7 +296,7 @@
             <div class="alert alert-danger mt-2 mt-2 d-none" id="alert-error">
               Error: <span id="betting-error"></span>.
             </div>
-            <button class="btn btn-sm btn-success mt-3 mb-3 form-control" v-on:click="suckMyDick()"
+            <button class="btn btn-sm btn-success mt-3 mb-3 form-control" v-on:click="horseBetting()"
               :disabled="numGold < .01">race</button>
 
           </form>

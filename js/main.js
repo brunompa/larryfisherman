@@ -320,7 +320,7 @@ let root = new Vue({
     },
     
     // function that runs when the user click race
-    suckMyDick: function () {
+    horseBetting: function () {
       let bettingGoldAmount = document.getElementById('betting-gold-amount').value;
       let horseUserBettingOn = document.getElementById('horse-bet-winning').value;
 
@@ -344,10 +344,16 @@ let root = new Vue({
         document.getElementById("alert-error").classList.remove("d-none");
         document.getElementById("betting-error").innerHTML = "The amount of gold you entered is not valid";
 
+        divAlertLoss.classList.add("d-none");
+        divAlertWon.classList.add("d-none");
+
       } else if (horseUserBettingOn > 5 || horseUserBettingOn < 1) {
         // alert("Horsey horse no good?")
         document.getElementById("alert-error").classList.remove("d-none");
         document.getElementById("betting-error").innerHTML = "You can only bet from horse 1 to 5";
+
+        divAlertLoss.classList.add("d-none");
+          divAlertWon.classList.add("d-none");
 
       } else if(horseUserBettingOn > 0 && bettingGoldAmount > 0) {
         this.numGold -= bettingGoldAmount;
@@ -367,7 +373,6 @@ let root = new Vue({
         }
       }
       
-
       console.log("- odds   " + odds)
       console.log("- bet    " + horseUserBettingOn);
       console.log("- result " + result);
@@ -379,16 +384,39 @@ let root = new Vue({
 
 
     todo: function () {
-      setInterval(() => {
 
+
+
+      setInterval(() => {
         let fishermen = this.land.fisherman.count
         let sellers = this.land.seller.count
 
-        if (fishermen !== 0 && this.stance !== false) {
+        let fishermenReady = this.fishermen !== 0 && this.stance !== false ? true : false;
+
+        // console.log(fishermenReady)
+
+        if (fishermenReady == true && this.objects.fish.count < this.availableStorage) {
           let numeroDePeixes = this.land.fisherman.count / 10
           this.updateFishCount(this.objects.fish.count + numeroDePeixes)
           this.objects.fish.total += numeroDePeixes
+          console.log(numeroDePeixes)
+          console.log(this.objects.fish.count)
+
+          // implement hability for fisherman to use bait
+          // well leave a if until I find a better solution
+          if (this.objects.bait.count > 0) {
+
+            this.objects.bait.count -= numeroDePeixes;
+            this.updateFishCount(this.objects.fish.count + numeroDePeixes);
+            
+            console.log(numeroDePeixes)
+            console.log(this.objects.bait.count)
+
+            // this.objects.fish.total++;
+            
+          }
         }
+
 
         if (sellers !== 0 && this.objects.fish.value > 0) {
           let numeroDePeixes = this.land.seller.count
