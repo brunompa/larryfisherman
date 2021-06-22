@@ -165,7 +165,7 @@ section div {
 
 a {
   display: block;
-  margin: 10% auto 10px;
+  margin: 10% auto 20px;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -188,7 +188,8 @@ svg {
   display: block;
 }
 
-button {
+button,
+svg {
   -ms-touch-action: manipulation;
       touch-action: manipulation;
 }

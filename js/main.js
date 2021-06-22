@@ -164,22 +164,40 @@ let root = new Vue({
           this.objects.bait.count--;
           this.updateFishCount(this.objects.fish.count + 1)
           this.objects.fish.total++
-
         }
         if (this.objects.fishingrod.count > 0 && this.availableStorage > this.objects.fish.count) {
           this.updateFishCount(this.objects.fish.count + 1)
           this.objects.fish.total++
+        }
 
-        }
-        if (this.objects.fish.count >= this.availableStorage) {
-          this.fishingState = false;
-        }
-        if (this.objects.fish.count > 0 && this.stance == false) {
-          this.sellingState = true;
-        }
+        this.updateFishingState ();
+
       } else {
         this.fishingState = false;
       }
+    },
+
+    updateFishingState: function () {
+      // fish check code
+      if (this.objects.fish.count >= this.availableStorage) {
+        this.fishingState = false;
+      }
+      else {
+        this.fishingState = true;
+      }
+
+      // code to test if the else doesnt work like intended
+      // maybe just use a else here since its the only other option?
+      // if (this.objects.fish.count < this.availableStorage) {
+      // }
+
+      if (this.objects.fish.count > 0 && this.stance == false) {
+        this.sellingState = true;
+      }
+      if (this.objects.fish.count <= 0) {
+        this.sellingState = false;
+      }
+
     },
 
     updateHelper: function (helper, value) {
@@ -228,12 +246,7 @@ let root = new Vue({
       if (this.objects.fish.value > 0 && this.stance == false) {
         this.updateFishCount(this.objects.fish.count - 1)
         this.numGold += this.objects.fish.cost
-        if (this.objects.fish.value < this.availableStorage) {
-          this.fishingState = true;
-        }
-        if (this.objects.fish.value <= 0) {
-          this.sellingState = false;
-        }
+        this.updateFishingState();
       } else {
         this.sellingState = false;
       }
@@ -399,8 +412,11 @@ let root = new Vue({
           let numeroDePeixes = this.land.fisherman.count / 10
           this.updateFishCount(this.objects.fish.count + numeroDePeixes)
           this.objects.fish.total += numeroDePeixes
-          console.log(numeroDePeixes)
-          console.log(this.objects.fish.count)
+          // console.log(numeroDePeixes)
+          // console.log(this.objects.fish.count)
+
+          this.updateFishingState ();
+
 
           // implement hability for fisherman to use bait
           // well leave a if until I find a better solution
@@ -409,8 +425,8 @@ let root = new Vue({
             this.objects.bait.count -= numeroDePeixes;
             this.updateFishCount(this.objects.fish.count + numeroDePeixes);
             
-            console.log(numeroDePeixes)
-            console.log(this.objects.bait.count)
+            // console.log(numeroDePeixes)
+            // console.log(this.objects.bait.count)
 
             // this.objects.fish.total++;
             
@@ -422,6 +438,7 @@ let root = new Vue({
           let numeroDePeixes = this.land.seller.count
           this.updateFishCount(this.objects.fish.count - numeroDePeixes)
           this.numGold += this.land.seller.count * this.objects.fish.cost
+         this.updateFishingState ();
         }
 
         // console.log("tick");
