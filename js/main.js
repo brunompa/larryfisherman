@@ -352,7 +352,7 @@ let root = new Vue({
       let divAlertLoss = document.getElementById("alert-l");
       let divAlertWon = document.getElementById("alert-w");
 
-      if (bettingGoldAmount > this.numGold){
+      if (bettingGoldAmount > this.numGold || bettingGoldAmount <= 0){
         // alert("Gold no good!")
         document.getElementById("alert-error").classList.remove("d-none");
         document.getElementById("betting-error").innerHTML = "The amount of gold you entered is not valid";
