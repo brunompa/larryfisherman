@@ -92,16 +92,6 @@
 
           </div>
           <!-- change depth code -->
-
-          <!-- <div class="wrap">
-            <h1>Counter, increment, decrement</h1>
-            <div class="counter">
-              <input class="counter__input" type="text" value="1" name="counter" size="5" readonly="readonly" />
-              <a class="counter__increment" href="#">+</a>
-              <a class="counter__decrement" href="#">&ndash;</a>
-            </div>
-          </div> -->
-
           <!-- <label class="form-label d-block" for="fishingDepth">Depth for fishing: {{fishingDepth}}</label>
           <div>
             <input type="range" min="0" max="100" step="20" value="0" v-on:change="changeFishingDepth()"
@@ -252,19 +242,21 @@
           <span class="d-block">Total fish - {{Math.trunc(this.objects.fish.total)}}</span>
           <span class="d-block">{{this.objects.bait.name}} - {{Math.trunc(this.objects.bait.count)}}</span>
 
-          <span class="d-block" v-if="this.objects.permit.count > 0">{{this.land.stand.name}} -
-            {{this.land.stand.count}}</span>
-
           <span class="d-block"
             v-if="this.objects.permit.count > 0 || this.objects.fishingrod.count > 0">{{this.land.friend.name}} -
             {{this.land.friend.count}}</span>
-
           <span class="d-block" v-if="this.objects.permit.count > 0">{{this.land.employee.name}} -
             {{this.land.employee.count}}</span>
 
+            <!-- Sellers -->
+          <span class="d-block" v-if="this.objects.permit.count > 0">{{this.land.stand.name}} -
+            {{this.land.stand.count}}</span>
           <span class="d-block" v-if="this.land.stand.count > 0">{{this.land.store.name}} -
             {{this.land.store.count}}</span>
-
+          <span class="d-block" v-if="this.land.store.count > 0">{{this.land.sushirestaurant.name}} -
+            {{this.land.sushirestaurant.count}}</span>
+            
+            <!-- Boats -->
           <span class="d-block">{{this.sea.canoe.name}} - {{this.sea.canoe.count}}</span>
           <span class="d-block" v-if="this.sea.canoe.count > 0">{{this.sea.deckboat.name}} -
             {{this.sea.deckboat.count}}</span>
@@ -273,13 +265,8 @@
           <span class="d-block" v-if="this.sea.sailboat.count > 0">{{this.sea.trawler.name}} -
             {{this.sea.trawler.count}}</span>
 
-          <!-- <span class="d-block">{{this.objects.worker.name}} - {{this.objects.worker.count}}</span> -->
-          <!-- fix the amount of fish making, add a value that never removes -->
-
         </div>
       </section>
-
-
 
       <!-- gambling section -->
       <section class="col-12 col-lg-4 pt-2 d-none" id="betting-section">

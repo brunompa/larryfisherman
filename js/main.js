@@ -329,7 +329,7 @@ let root = new Vue({
     // on img click show the gambling section
     showGamblingSection: function () {
       let bettingSection = document.getElementById("betting-section");
-      bettingSection.classList.remove("d-none");
+      bettingSection.classList.toggle("d-none");
     },
     
     // function that runs when the user click race
