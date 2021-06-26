@@ -246,7 +246,15 @@
             v-if="this.land.store.count > 0 && this.land.storelocation.count < 1">{{this.land.storelocation.name}}
             -
             {{this.land.storelocation.cost}}</button>
+
+          <!-- STORAGE -->
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.storestorage.cost"
+            v-on:click="buyStoreStorage"
+            v-if="this.land.store.count > 0 && this.land.storestorage.count < 1">{{this.land.storestorage.name}} -
+            {{this.land.storestorage.cost}}</button>
         </div>
+
+
       </section>
 
       <section class="col-12 col-lg-4 pt-2">

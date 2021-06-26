@@ -121,6 +121,12 @@ let root = new Vue({
         cost: 1500,
         value: .5,
       },
+      storestorage: {
+        name: "More Storage",
+        count: 0,
+        cost: 1500,
+        storage: 1000,
+      },
       sushirestaurant: {
         name: "Sushi Restaurant",
         count: 0,
@@ -308,6 +314,11 @@ let root = new Vue({
     buyDockStorage: function () {
       this.buyItem("land", "dockstorage");
       this.availableStorage += this.land.dockstorage.storage;
+    },
+
+    buyStoreStorage: function () {
+      this.buyItem("land", "storestorage");
+      this.availableStorage += this.land.storestorage.storage;
     },
 
     // whenever you buy something that increases the value of fish
