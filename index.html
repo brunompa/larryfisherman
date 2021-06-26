@@ -207,22 +207,35 @@
             v-if="this.sea.canoeextension.count < 1 && this.sea.canoe.count > 0">{{this.sea.canoeextension.name}}
             - {{this.sea.canoeextension.cost}}</button>
 
-          <!-- DOCK -->
-          <span
-            v-if="this.land.dockstorage.count < 1 || this.land.docklocation.count < 1">{{this.land.dock.name}}</span>
+          <div v-if="this.objects.permit.count > 0">
+            <!-- DOCK -->
+            <span
+              v-if="this.land.dockstorage.count < 1 || this.land.docklocation.count < 1">{{this.land.dock.name}}</span>
+
+            <!-- LOCATION -->
+            <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.docklocation.cost"
+              v-on:click="buyOrderValue('land', 'docklocation')"
+              v-if="this.objects.permit.count > 0 && this.land.docklocation.count < 1">{{this.land.docklocation.name}}
+              -
+              {{this.land.docklocation.cost}}</button>
+
+            <!-- STORAGE -->
+            <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.dockstorage.cost"
+              v-on:click="buyDockStorage"
+              v-if="this.objects.permit.count > 0 && this.land.dockstorage.count < 1">{{this.land.dockstorage.name}} -
+              {{this.land.dockstorage.cost}}</button>
+          </div>
+
+          <!-- STAND -->
+          <span v-if="this.land.stand.count > 0 && this.land.standlocation.count < 1">{{this.land.stand.name}}</span>
 
           <!-- LOCATION -->
-          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.docklocation.cost"
-            v-on:click="buyOrderValue('land', 'docklocation')"
-            v-if="this.objects.permit.count > 0 && this.land.docklocation.count < 1">{{this.land.docklocation.name}}
+          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.standlocation.cost"
+            v-on:click="buyOrderValue('land', 'standlocation')"
+            v-if="this.land.stand.count > 0 && this.land.standlocation.count < 1">{{this.land.standlocation.name}}
             -
-            {{this.land.docklocation.cost}}</button>
+            {{this.land.standlocation.cost}}</button>
 
-          <!-- STORAGE -->
-          <button class="d-block btn btn-info btn-sm mb-2" :disabled="numGold < this.land.dockstorage.cost"
-            v-on:click="buyDockStorage"
-            v-if="this.objects.permit.count > 0 && this.land.dockstorage.count < 1">{{this.land.dockstorage.name}} -
-            {{this.land.dockstorage.cost}}</button>
 
           <!-- STORE -->
           <span v-if="this.land.store.count > 0 && this.land.storelocation.count != 1">{{this.land.store.name}}</span>
@@ -248,15 +261,15 @@
           <span class="d-block" v-if="this.objects.permit.count > 0">{{this.land.employee.name}} -
             {{this.land.employee.count}}</span>
 
-            <!-- Sellers -->
+          <!-- Sellers -->
           <span class="d-block" v-if="this.objects.permit.count > 0">{{this.land.stand.name}} -
             {{this.land.stand.count}}</span>
           <span class="d-block" v-if="this.land.stand.count > 0">{{this.land.store.name}} -
             {{this.land.store.count}}</span>
           <span class="d-block" v-if="this.land.store.count > 0">{{this.land.sushirestaurant.name}} -
             {{this.land.sushirestaurant.count}}</span>
-            
-            <!-- Boats -->
+
+          <!-- Boats -->
           <span class="d-block">{{this.sea.canoe.name}} - {{this.sea.canoe.count}}</span>
           <span class="d-block" v-if="this.sea.canoe.count > 0">{{this.sea.deckboat.name}} -
             {{this.sea.deckboat.count}}</span>
@@ -288,15 +301,10 @@
               :disabled="numGold < .01">race</button>
 
           </form>
-
-          <div class="alert alert-danger d-none" id="alert-l">
-            Lost! The winner was {{this.bettingResult}}.
-          </div>
-          <div class="alert alert-success d-none" id="alert-w">
-            Won! The winner was {{this.bettingResult}}.
+          <div class="alert alert-success alert-danger d-none" id="alert-winner">
+            <span id="alert-winner-side"></span>! The winner was {{this.bettingResult}}.
           </div>
         </div>
-
       </section>
     </div>
 
@@ -317,12 +325,13 @@
 
   <script src="js/main.js" charset="utf-8" type="text/javascript"></script>
 
-  <script>
+  <!-- code for the tooltip not yet implemented -->
+  <!-- <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-  </script>
+  </script> -->
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
     data-cf-beacon='{"token": "d7da27f61ec849e8a99b66516f07d0cb", "spa": true}'></script>

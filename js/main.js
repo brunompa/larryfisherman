@@ -102,6 +102,12 @@ let root = new Vue({
         cost: 50,
         value: .25,
       },
+      standlocation: {
+        name: "Better Location",
+        count: 0,
+        cost: 400,
+        value: .25,
+      },
       store: {
         name: "Store",
         count: 0,
@@ -337,11 +343,8 @@ let root = new Vue({
     
     // function that runs when the user click race
     horseBetting: function () {
-      let bettingGoldAmount = document.getElementById('betting-gold-amount').value;
-      let horseUserBettingOn = document.getElementById('horse-bet-winning').value;
-
-      bettingGoldAmount = parseInt(bettingGoldAmount) || 0
-      horseUserBettingOn = parseInt(horseUserBettingOn) || 0
+      let bettingGoldAmount = parseInt(document.getElementById('betting-gold-amount').value) || 0;
+      let horseUserBettingOn = parseInt(document.getElementById('horse-bet-winning').value) || 0;
 
       let result = (Math.floor(Math.random() * 5) + 1);
       this.bettingResult = result;
@@ -352,39 +355,38 @@ let root = new Vue({
 
       let wonOnBet = 0;
        
-      let divAlertLoss = document.getElementById("alert-l");
-      let divAlertWon = document.getElementById("alert-w");
+      let divAlertWinner = document.getElementById("alert-winner");
+      let divAlertWinnerSide = document.getElementById("alert-winner-side");
 
       if (bettingGoldAmount > this.numGold || bettingGoldAmount <= 0){
         // alert("Gold no good!")
         document.getElementById("alert-error").classList.remove("d-none");
         document.getElementById("betting-error").innerHTML = "The amount of gold you entered is not valid";
-
-        divAlertLoss.classList.add("d-none");
-        divAlertWon.classList.add("d-none");
+        divAlertWinner.classList.add("d-none");
 
       } else if (horseUserBettingOn > 5 || horseUserBettingOn < 1) {
         // alert("Horsey horse no good?")
         document.getElementById("alert-error").classList.remove("d-none");
         document.getElementById("betting-error").innerHTML = "You can only bet from horse 1 to 5";
-
-        divAlertLoss.classList.add("d-none");
-          divAlertWon.classList.add("d-none");
+        divAlertWinner.classList.add("d-none");
 
       } else if(horseUserBettingOn > 0 && bettingGoldAmount > 0) {
         this.numGold -= bettingGoldAmount;
         document.getElementById("alert-error").classList.add("d-none");
+
         if (result == horseUserBettingOn) {
           console.log("won")
           this.numGold += bettingGoldAmount * odds;
           wonOnBet = bettingGoldAmount * odds;
-          divAlertLoss.classList.add("d-none");
-          divAlertWon.classList.remove("d-none");
+          divAlertWinner.classList.remove("d-none", "alert-danger");
+          divAlertWinner.classList.add("alert-success");
+          divAlertWinnerSide.innerHTML = "Won";
 
         } else {
           console.log("lost")
-          divAlertLoss.classList.remove("d-none");
-          divAlertWon.classList.add("d-none");
+          divAlertWinner.classList.remove("d-none", "alert-success");
+          divAlertWinner.classList.add("alert-danger");
+          divAlertWinnerSide.innerHTML = "Lost";
 
         }
       }
@@ -394,6 +396,7 @@ let root = new Vue({
       console.log("- result " + result);
       console.log("- earned " + wonOnBet);
       
+      // this would clean the input but I kinda like to leave the numbers that the user inputed
       // document.getElementById('betting-gold-amount').value = '';
       // document.getElementById('horse-bet-winning').value = '';
     },
