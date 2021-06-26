@@ -158,6 +158,12 @@ let root = new Vue({
         cost: 3000,
         value: .75,
       },
+      baitproducer: {
+        name: "Bait Producer",
+        count: 0,
+        cost: 750,
+        speed: .50,
+      },
     },
 
     objects: {
@@ -344,7 +350,6 @@ let root = new Vue({
       this.buyItem("sea", "deckboatstorage");
       this.availableStorage += this.sea.deckboatstorage.storage;
     },
-    
 
     buyStoreStorage: function () {
       this.buyItem("land", "storestorage");
@@ -490,7 +495,11 @@ let root = new Vue({
           let numeroDePeixes = this.land.seller.count
           this.updateFishCount(this.objects.fish.count - numeroDePeixes)
           this.numGold += this.land.seller.count * this.objects.fish.cost
-         this.updateFishingState ();
+          this.updateFishingState ();
+        }
+
+        if (this.land.baitproducer.count > 0) {
+          this.objects.bait.count += this.land.baitproducer.speed;
         }
 
         // console.log("tick");
