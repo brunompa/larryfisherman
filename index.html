@@ -31,7 +31,7 @@
   <main id="root" class="container">
     <div class="row">
 
-      <section class="col-12 col-lg-4 pt-2">
+      <section class="col-12 col-lg-4 col-xl-3 pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5 class="d-block">Info</h5>
 
@@ -101,7 +101,7 @@
 
       </section>
 
-      <section class="col-12 col-lg-4 pt-2">
+      <section class="col-12 col-lg-4 col-xl-3 pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Buy</h5>
           <!-- FISHING ROD -->
@@ -194,7 +194,7 @@
         </div>
       </section>
 
-      <section class="col-12 col-lg-4  pt-2" v-if="this.sea.canoe.count > 0 || this.objects.permit.count > 0">
+      <section class="col-12 col-lg-4 col-xl-3  pt-2" v-if="this.sea.canoe.count > 0 || this.objects.permit.count > 0">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Upgrades</h5>
 
@@ -289,7 +289,7 @@
         </div>
       </section>
 
-      <section class="col-12 col-lg-4 pt-2">
+      <section class="col-12 col-lg-4 col-xl-3 pt-2">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Journal</h5>
           <span class="d-block">Total fish - {{Math.trunc(this.objects.fish.total)}}</span>
@@ -322,7 +322,7 @@
       </section>
 
       <!-- gambling section -->
-      <section class="col-12 col-lg-4 pt-2 d-none" id="betting-section">
+      <section class="col-12 col-lg-4 col-xl-3 pt-2 d-none mx-xl-auto" id="betting-section">
         <div class="border rounded position-relative p-3 h-100">
           <h5>Horse race betting</h5>
           <form onsubmit="return false">
