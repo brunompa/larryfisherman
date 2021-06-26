@@ -40,6 +40,12 @@ let root = new Vue({
         cost: 750,
         space: 3
       },
+      deckboatstorage: {
+        name: "More Storage",
+        count: 0,
+        cost: 350,
+        storage: 500,
+      },
       sailboat: {
         name: "Sail Boat",
         count: 0,
@@ -333,6 +339,12 @@ let root = new Vue({
       this.buyItem("land", "dockstorage");
       this.availableStorage += this.land.dockstorage.storage;
     },
+
+    buyDeckBoatStorage: function () {
+      this.buyItem("sea", "deckboatstorage");
+      this.availableStorage += this.sea.deckboatstorage.storage;
+    },
+    
 
     buyStoreStorage: function () {
       this.buyItem("land", "storestorage");
