@@ -273,12 +273,14 @@ let root = new Vue({
       this.buyItem("land", "store");
       this.availableStorage += this.land.store.storage;
       this.objects.fish.cost += this.land.store.value;
+      this.updateGoldPerSec();
     },
 
     buySushiRestaurant: function () {
       this.buyItem("land", "sushirestaurant");
       this.availableStorage += this.land.sushirestaurant.storage;
       this.objects.fish.cost += this.land.sushirestaurant.value;
+      this.updateGoldPerSec();
     },
 
     buyEmployee: function () {
@@ -306,6 +308,7 @@ let root = new Vue({
     buyOrderValue: function (place, ovni) {
       this.buyItem(place, ovni);
       this.objects.fish.cost += this[place][ovni].value;
+      this.updateGoldPerSec();
     },
 
     // whenever you buy a item that increases space (friends capacity)
