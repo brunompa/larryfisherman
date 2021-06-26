@@ -15,7 +15,7 @@ let root = new Vue({
     availableStorage: 100,
 
     fishingState: true,
-    sellingState: true,
+    sellingState: false,
 
     fishingDepth: 0,
 
@@ -118,13 +118,13 @@ let root = new Vue({
       storelocation: {
         name: "Better Location",
         count: 0,
-        cost: 1500,
+        cost: 1250,
         value: .5,
       },
       storestorage: {
         name: "More Storage",
         count: 0,
-        cost: 1500,
+        cost: 1250,
         storage: 1000,
       },
       sushirestaurant: {
@@ -133,6 +133,24 @@ let root = new Vue({
         cost: 2000,
         value: .25,
         storage: 500,
+      },
+      sushirestaurantlocation: {
+        name: "Better Location",
+        count: 0,
+        cost: 1750,
+        value: .5,
+      },
+      sushirestaurantstorage: {
+        name: "More Storage",
+        count: 0,
+        cost: 1750,
+        storage: 1000,
+      },
+      sushirestaurantsize: {
+        name: "Increase Size",
+        count: 0,
+        cost: 3000,
+        value: .75,
       },
     },
 
@@ -319,6 +337,11 @@ let root = new Vue({
     buyStoreStorage: function () {
       this.buyItem("land", "storestorage");
       this.availableStorage += this.land.storestorage.storage;
+    },
+
+    buySushiRestaurantStorage: function () {
+      this.buyItem("land", "sushirestaurantstorage");
+      this.availableStorage += this.land.sushirestaurantstorage.storage;
     },
 
     // whenever you buy something that increases the value of fish
