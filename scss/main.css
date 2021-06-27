@@ -175,6 +175,7 @@ a {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  color: #c1c4c5;
 }
 
 .math-symbol-img {
@@ -189,7 +190,7 @@ svg {
 }
 
 button,
-svg {
+a {
   -ms-touch-action: manipulation;
       touch-action: manipulation;
 }
