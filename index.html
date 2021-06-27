@@ -57,16 +57,16 @@
           <div v-if="this.land.helper.busy > 0 || this.land.helper.free">
             <div class="row mb-1">
               <span class="col-md-4 col-lg-12 col-form-label">Fisherman:</span>
-              <a type="button" class="p-0 math-symbol" v-on:click="subFishermanCount"><svg viewBox="0 0 16 16"
-                  title="minus">
+              <a class="p-0 math-symbol" v-on:click="subFishermanCount"><svg viewBox="0 0 16 16" title="minus"
+                  fill="currentColor">
                   <rect color="#C1C4C5" x="1.32" y="6.5" width="13.36" height="2.99"></rect>
                 </svg></a>
               <div class="col-4 col-md-3 col-lg-4 col-xl-3">
                 <input class="form-control col-8 form-select-sm" v-model.number="this.land.fisherman.count" min="0"
                   :max='this.land.helper.count'>
               </div>
-              <a type="button" class="p-0 math-symbol" v-on:click="addFishermanCount"><svg viewBox="0 0 16 16"
-                  title="plus">
+              <a class="p-0 math-symbol" v-on:click="addFishermanCount"><svg viewBox="0 0 16 16" title="plus"
+                  fill="currentColor">
                   <polygon color="#C1C4C5"
                     points="14.68 6.6 9.4 6.6 9.4 1.32 6.6 1.32 6.6 6.6 1.32 6.6 1.32 9.4 6.6 9.4 6.6 14.68 9.4 14.68 9.4 9.4 14.68 9.4 14.68 6.6">
                   </polygon>
@@ -74,15 +74,15 @@
             </div>
             <div class="row ">
               <span class="col-md-4 col-lg-12 col-form-label">Employees:</span>
-              <a type="button" class="p-0 math-symbol" v-on:click="subSellerCount"><svg viewBox="0 0 16 16"
-                  title="minus" fill="currentColor">
+              <a class="p-0 math-symbol" v-on:click="subSellerCount"><svg viewBox="0 0 16 16" title="minus"
+                  fill="currentColor">
                   <rect color="#C1C4C5" x="1.32" y="6.5" width="13.36" height="2.99"></rect>
                 </svg></a>
               <div class="col-4 col-md-3 col-lg-4 col-xl-3">
                 <input class="form-control col-8 form-select-sm" v-model.number="this.land.seller.count" min="0"
                   :max='this.land.helper.count'>
               </div>
-              <a type="button" class="p-0 math-symbol" v-on:click="addSellerCount"><svg viewBox="0 0 16 16" title="plus"
+              <a class="p-0 math-symbol" v-on:click="addSellerCount"><svg viewBox="0 0 16 16" title="plus"
                   fill="currentColor">
                   <polygon color="#C1C4C5"
                     points="14.68 6.6 9.4 6.6 9.4 1.32 6.6 1.32 6.6 6.6 1.32 6.6 1.32 9.4 6.6 9.4 6.6 14.68 9.4 14.68 9.4 9.4 14.68 9.4 14.68 6.6">
