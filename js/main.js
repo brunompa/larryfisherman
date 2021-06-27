@@ -228,11 +228,6 @@ let root = new Vue({
         this.fishingState = true;
       }
 
-      // code to test if the else doesnt work like intended
-      // maybe just use a else here since its the only other option?
-      // if (this.objects.fish.count < this.availableStorage) {
-      // }
-
       if (this.objects.fish.count > 0 && this.stance == false) {
         this.sellingState = true;
       }
@@ -474,7 +469,6 @@ let root = new Vue({
 
           this.updateFishingState ();
 
-
           // implement hability for fisherman to use bait
           // well leave a if until I find a better solution
           if (this.objects.bait.count > 0) {
@@ -489,7 +483,6 @@ let root = new Vue({
             
           }
         }
-
 
         if (sellers !== 0 && this.objects.fish.value > 0) {
           let numeroDePeixes = this.land.seller.count
@@ -522,6 +515,4 @@ let root = new Vue({
       }
     });
   }
-
 });
-
